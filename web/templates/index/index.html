@@ -1,4 +1,4 @@
-{% extends "common/layout_main.html" %}、
+{% extends "common/layout_main.html" %}
 
 
 {% block css %}
@@ -10,15 +10,13 @@
 
 
 {% block content %}
-<!-- <audio class="audio-player" autoplay loop>
-	<source src="{{ buildStaticUrl('/index/audio/song.mp3') }}" type="audio/mpeg">
-</audio> -->
+
 <div class="bg-container snowy">
-	<!-- GLASS BALL -->
+	<!-- <audio class="audio-player" autoplay loop>
+		<source src="{{ buildStaticUrl('/index/audio/song.mp3') }}" type="audio/mpeg">
+	</audio> -->
 	<div class="glass-ball rotate"></div>
-	<!-- TOP LIGHT -->
 	<div class="top-light"></div>
-	<!-- PAGE CONTENT -->
 	<div class="page-content">
 		<div class="fullpage">
 			<!-- HOME SECTION -->
@@ -26,9 +24,9 @@
 				<!-- TITLE -->
 				<h1 class="snow-text">Coming Soon</h1>
 				<!-- COUNTER -->
-				<div class="snow-box">
+				<!-- <div class="snow-box">
 					<div class="countdown" data-date="December 25 2016 00:00:00"></div>
-				</div>
+				</div> -->
 			</div>
 			<!-- INFO SECTION -->
 			<div id="info" class="section">
@@ -36,7 +34,12 @@
 					<!-- INFO TEXT -->
 					<div class="shadow-box">
 						<h2>Our website is coming soon</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat hendrerit mauris, non porta lectus varius sed. Sed maximus faucibus ullamcorper. Etiam eu varius purus, ac hendrerit orci. Duis iaculis dui bibendum mi accumsan, eget condimentum justo scelerisque. Sed sit amet porta sapien. Donec hendrerit enim at risus gravida vehicula. Curabitur tristique pellentesque dictum. Aenean sed lorem odio. Nunc a eleifend mi, vitae sodales lacus. Vestibulum id lorem mollis, euismod nisi at, dignissim elit.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat hendrerit mauris,
+							non porta lectus varius sed. Sed maximus faucibus ullamcorper. Etiam eu varius purus, ac
+							hendrerit orci. Duis iaculis dui bibendum mi accumsan, eget condimentum justo scelerisque.
+							Sed sit amet porta sapien. Donec hendrerit enim at risus gravida vehicula. Curabitur
+							tristique pellentesque dictum. Aenean sed lorem odio. Nunc a eleifend mi, vitae sodales
+							lacus. Vestibulum id lorem mollis, euismod nisi at, dignissim elit.</p>
 					</div>
 					<!-- SOCIAL ICONS -->
 					<ul class="social-icons">
@@ -53,14 +56,17 @@
 					<!-- CONTACT TEXT -->
 					<div class="shadow-box">
 						<h3>Contact</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat hendrerit mauris, non porta lectus varius sed. Sed maximus faucibus ullamcorper. Etiam eu varius purus, ac hendrerit orci.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat hendrerit mauris,
+							non porta lectus varius sed. Sed maximus faucibus ullamcorper. Etiam eu varius purus, ac
+							hendrerit orci.</p>
 					</div>
 					<!-- CONTACT FORM -->
 					<div class="contact">
 						<div id="contact-result">
 							<!-- CONTACT RESULT HOLDER -->
 						</div>
-						<form class="contact-form ajax-form" name="contact" action="contacts.php" method="POST" data-result="#contact-result">
+						<form class="contact-form ajax-form" name="contact" action="contacts.php" method="POST"
+							data-result="#contact-result">
 							<div class="form-group">
 								<input name="name" type="text" class="form-control" value="" placeholder="Name">
 							</div>

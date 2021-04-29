@@ -1,0 +1,45 @@
+{% extends "common/layout_main.html" %}
+
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link href="{{ buildStaticUrl('/h5learning/css/rotationmenu.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
+
+
+{% block content %}
+<!-- 菜单部分 -->
+<nav class="menu">
+    <input type="checkbox" checked="checked" class="menu-toggler" id="menu-toggler"/>
+    <label for="menu-toggler"></label>
+    <ul>
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="fa fa-weibo"></a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="fa fa-youtube"></a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="fa fa-wordpress"></a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="fa fa-qq"></a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="fa fa-weixin"></a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="fa fa-github"></a>
+        </li>
+    </ul>
+</nav>
+{% endblock %}
+
+
+
+
+{% block js %}
+
+{% endblock %}

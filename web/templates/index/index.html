@@ -11,6 +11,9 @@
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"> -->
 <link href="{{ buildStaticUrl('/h5learning/css/rotationmenu.css') }}" rel="stylesheet" type="text/css">
 
+<!-- 旋转UI -->
+<link href="{{ buildStaticUrl('/h5learning/css/rotationUI.css') }}" rel="stylesheet" type="text/css">
+
 {% endblock %}
 
 
@@ -20,10 +23,56 @@
 	<!-- <audio class="audio-player" autoplay loop>
 		<source src="{{ buildStaticUrl('/index/audio/song.mp3') }}" type="audio/mpeg">
 	</audio> -->
-	<div class="glass-ball rotate"></div>
+	<!-- <div class="glass-ball rotate"></div> -->
 	<!-- <div class="top-light"></div> -->
 	<div class="page-content">
 		<div class="fullpage">
+			<!-- HOME SECTION -->
+			<div id="home" class="section active">
+				<!-- 旋转UI -->
+				<a href="#" class="icon green ion-ios-star-outline"></a>
+				<a href="#" class="icon blue ion-ios-list-outline"></a>
+				<a href="#" class="icon navy ion-ios-chatboxes-outline"></a>
+				<a href="#" class="icon yellow ion-ios-home-outline"></a>
+				<a href="#" class="icon red ion-ios-pie-outline"></a>
+				<a href="#" class="icon ion-ios-gear-outline"></a> 
+				<!-- /旋转UI -->
+
+				<!-- 旋转菜单 -->
+				<!-- <nav class="menu">
+					<input type="checkbox" checked="checked" class="menu-toggler" id="menu-toggler"/>
+					<label for="menu-toggler"></label>
+					<ul>
+						<li class="menu-item">
+							<a href="javascript:void(0)" class="fa fa-gamepad"></a>
+						</li>
+						<li class="menu-item">
+							<a href="{{buildUrl('h5learning/')}}" class="fa fa-cloud"></a>
+						</li>
+						<li class="menu-item">
+							<a href="javascript:void(0)" class="fa fa-wordpress"></a>
+						</li>
+						<li class="menu-item">
+							<a href="javascript:void(0)" class="fa fa-qq"></a>
+						</li>
+						<li class="menu-item">
+							<a href="javascript:void(0)" class="fa fa-weixin"></a>
+						</li>
+						<li class="menu-item">
+							<a href="javascript:void(0)" class="fa fa-github"></a>
+						</li>
+					</ul>
+				</nav> -->
+				<!-- /旋转菜单 -->
+
+				<!-- TITLE -->
+				<!-- <h1 class="snow-text">Coming Soon</h1> -->
+				<!-- COUNTER -->
+				<!-- <div class="snow-box">
+					<div class="countdown" data-date="December 25 2016 00:00:00"></div>
+				</div> -->
+			</div>		
+
 			<!-- HOME SECTION -->
 			<div id="home" class="section active">
 				<!-- 旋转菜单 -->
@@ -35,7 +84,7 @@
 							<a href="javascript:void(0)" class="fa fa-gamepad"></a>
 						</li>
 						<li class="menu-item">
-							<a href="javascript:void(0)" class="fa fa-cloud"></a>
+							<a href="{{buildUrl('h5learning/')}}" class="fa fa-cloud"></a>
 						</li>
 						<li class="menu-item">
 							<a href="javascript:void(0)" class="fa fa-wordpress"></a>
@@ -52,6 +101,7 @@
 					</ul>
 				</nav>
 				<!-- /旋转菜单 -->
+
 				<!-- TITLE -->
 				<!-- <h1 class="snow-text">Coming Soon</h1> -->
 				<!-- COUNTER -->
@@ -59,6 +109,7 @@
 					<div class="countdown" data-date="December 25 2016 00:00:00"></div>
 				</div> -->
 			</div>
+
 			<!-- INFO SECTION -->
 			<div id="info" class="section">
 				<div class="container">
@@ -81,6 +132,7 @@
 					</ul>
 				</div>
 			</div>
+
 			<!-- CONTACT SECTION -->
 			<div id="contact" class="section">
 				<div class="container">
@@ -114,6 +166,7 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 </div>
@@ -128,4 +181,9 @@
 <script type="text/javascript" src="{{ buildStaticUrl('/index/js/snowy.js') }}"></script>
 <script type="text/javascript" src="{{ buildStaticUrl('/index/js/script.js') }}"></script>
 <script type="text/javascript" src="{{ buildStaticUrl('/index/js/custom.js') }}"></script>
+
+<!-- 旋转UI -->
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script> -->
+<script src="{{buildStaticUrl('/h5learning/js/rotationUI.js')}}"></script>
+
 {% endblock %}

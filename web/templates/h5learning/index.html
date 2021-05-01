@@ -1,0 +1,95 @@
+{% extends "common/layout_main.html" %}
+
+{% block css %}
+<link href="{{ buildStaticUrl('/h5learning/css/picSlider.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+<div class="slider">
+    <input name="control" id="page1" type="radio" checked />
+    <input name="control" id="page2" type="radio" />
+    <input name="control" id="page3" type="radio" />
+    <input name="control" id="page4" type="radio" />
+    <!-- 第一张图 -->
+
+    <div class="slider--el slider--el-1 anim-4parts">
+        <!-- 将背景划分为四个区域 -->
+        <div class="slider--el-bg">
+            <div class="part top left"></div>
+            <div class="part top right"></div>
+            <div class="part bot left"></div>
+            <div class="part bot right"></div>
+        </div>
+        <!-- 文字部分 -->
+        <div class="slider--el-content">
+            <a href="{{buildUrl('/h5learning/bottomfish')}}" target="_blank" style="text-decoration: none;">
+                <h2 class="slider--el-heading">Bottom Fish</h2>
+            </a>
+        </div>
+    </div>
+
+    <!-- 第二张图 -->
+    <div class="slider--el slider--el-2 anim-9parts">
+        <!-- 将背景划分为九个区域 -->
+        <div class="slider--el-bg">
+            <div class="part left-top"></div>
+            <div class="part mid-top"></div>
+            <div class="part right-top"></div>
+            <div class="part left-mid"></div>
+            <div class="part mid-mid"></div>
+            <div class="part right-mid"></div>
+            <div class="part left-bot"></div>
+            <div class="part mid-bot"></div>
+            <div class="part right-bot"></div>
+        </div>
+        <div class="slider--el-content">
+            <h2 class="slider--el-heading">Second Slide</h2>
+        </div>
+    </div>
+
+    <!-- 第三张图 -->
+    <div class="slider--el slider--el-3 anim-5parts">
+        <!-- 将背景划分为五个区域 -->
+        <div class="slider--el-bg">
+            <div class="part part-1"></div>
+            <div class="part part-2"></div>
+            <div class="part part-3"></div>
+            <div class="part part-4"></div>
+            <div class="part part-5"></div>
+        </div>
+        <div class="slider--el-content">
+            <h2 class="slider--el-heading">Third Slide</h2>
+        </div>
+    </div>
+
+    <!-- 第四张图 -->
+    <div class="slider--el slider--el-4 anim-3parts">
+        <!-- 将背景划分为三个区域 -->
+        <div class="slider--el-bg">
+            <div class="part left"></div>
+            <div class="part mid"></div>
+            <div class="part right"></div>
+        </div>
+        <div class="slider--el-content">
+            <h2 class="slider--el-heading">Fourth Slide</h2>
+        </div>
+    </div>
+    <div class="slider--control left">
+        <label class="page1-left" for="page1"></label>
+        <label class="page2-left" for="page2"></label>
+        <label class="page3-left" for="page3"></label>
+        <label class="page4-left" for="page4"></label>
+    </div>
+    <div class="slider--control right">
+        <label class="page1-right" for="page1"></label>
+        <label class="page2-right" for="page2"></label>
+        <label class="page3-right" for="page3"></label>
+        <label class="page4-right" for="page4"></label>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+
+{% endblock %}

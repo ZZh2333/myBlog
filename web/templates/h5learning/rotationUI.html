@@ -1,0 +1,21 @@
+{% extends "common/layout_main.html" %}
+
+{% block css %}
+<link href="{{ buildStaticUrl('/h5learning/css/rotationUI.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
+{% block content %}
+<a href="#" class="icon green ion-ios-star-outline"></a>
+<a href="#" class="icon blue ion-ios-list-outline"></a>
+<a href="#" class="icon navy ion-ios-chatboxes-outline"></a>
+<a href="#" class="icon yellow ion-ios-home-outline"></a>
+<a href="#" class="icon red ion-ios-pie-outline"></a>
+<a href="#" class="icon ion-ios-gear-outline"></a> 
+{% endblock %}
+
+
+{% block js %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+<script src="{{buildStaticUrl('/h5learning/js/rotationUI.js')}}"></script>
+{% endblock %}

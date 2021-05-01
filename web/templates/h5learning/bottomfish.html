@@ -1,0 +1,18 @@
+{% extends "common/layout_main.html"  %}
+
+{% block css %}
+<link href="{{ buildStaticUrl('/h5learning/css/bottomfish.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
+{% block content %}
+<div id="fish-container" class="container">
+
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+<script src="{{buildStaticUrl('/h5learning/js/bottomfish.js')}}"></script>
+{% endblock %}

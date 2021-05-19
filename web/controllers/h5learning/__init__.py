@@ -6,6 +6,7 @@ from web.controllers.h5learning.picslider import *
 from web.controllers.h5learning.rotationmenu import *
 from web.controllers.h5learning.bottomfish import *
 from web.controllers.h5learning.rotationUI import *
+from web.controllers.h5learning.morningandnight import *
 
 
 @route_h5learning.route('/')

@@ -1,0 +1,47 @@
+{% extends "common/layout_main.html" %}
+
+
+{% block css %}
+<link href="{{ buildStaticUrl('/index/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ buildStaticUrl('/index/css/fullpage.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ buildStaticUrl('/index/css/style.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ buildStaticUrl('/index/css/custom.css') }}" rel="stylesheet" type="text/css">
+
+<!-- 旋转UI -->
+<link href="{{ buildStaticUrl('/h5learning/css/rotationUI.css') }}" rel="stylesheet" type="text/css">
+
+{% endblock %}
+
+
+{% block content %}
+<!-- class="xxx snowy" -->
+<div class="bg-container snowy">
+	<audio class="audio-player" autoplay loop>
+		<source src="{{ buildStaticUrl('/index/audio/打上花火.mp3') }}" type="audio/mpeg">
+	</audio>
+	<div class="glass-ball rotate"></div>
+	<div class="top-light"></div>
+	<div class="page-content">
+		<div class="fullpage">
+
+
+
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script type="text/javascript" src="{{ buildStaticUrl('/index/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ buildStaticUrl('/index/js/countdown.min.js') }}"></script>
+<script type="text/javascript" src="{{ buildStaticUrl('/index/js/jquery.fullpage.min.js') }}"></script>
+<script type="text/javascript" src="{{ buildStaticUrl('/index/js/three.canvas.js') }}"></script>
+<script type="text/javascript" src="{{ buildStaticUrl('/index/js/snowy.js') }}"></script>
+<script type="text/javascript" src="{{ buildStaticUrl('/index/js/script.js') }}"></script>
+<script type="text/javascript" src="{{ buildStaticUrl('/index/js/custom.js') }}"></script>
+
+<!-- 旋转UI -->
+<script src="{{buildStaticUrl('/h5learning/js/rotationUI.js')}}"></script>
+
+{% endblock %}

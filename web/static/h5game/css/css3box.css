@@ -6,8 +6,12 @@ a.box {
     border: 1px solid #000;
     /* 平滑过度 */
     transition: all 3s linear;
+
+    -webkit-transition: all 0.5s linear;
+    -webkit-transform: translate(100px, 50px);
 }
 
 a.box:hover {
     background: #f00;
+    -webkit-transform: translate(100px, 50px) scale(1.1) rotate(30deg);
 }

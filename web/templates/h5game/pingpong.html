@@ -1,0 +1,41 @@
+{% extends "common/layout_main.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ buildStaticUrl('/h5game/css/pingpong.css') }}" type="text/css">
+
+{% endblock %}
+
+
+{% block content %}
+
+<div id="scoreboard">
+    <div class="score">玩家A：<span id="scoreA">0</span></div>
+    <div class="score">玩家B：<span id="scoreB">0</span></div>
+
+
+</div>
+
+<div id="game">
+    <div id="playground">
+        <div id="paddleA" class="paddle"></div>
+        <div id="paddleB" class="paddle"></div>
+        <div id="ball"></div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+<script src="{{buildStaticUrl('/index/js/jquery.min.js')}}"></script>
+<script src="{{buildStaticUrl('/h5game/js/pingpong.js')}}"></script>
+
+<!-- jquery导入检测 -->
+<!-- <script>
+    $(function(){
+        alert("welcome to the pingpong battle!");
+    });
+</script> -->
+{% endblock %}

@@ -6,7 +6,7 @@ import www
 
 # 添加运行方法和指令
 manager.add_command("run",Server(host='127.0.0.1',port=5005,use_debugger=True,use_reloader=True))
-manager.add_command("runserver",Server(host='0.0.0.0',port=6010,use_debugger=False,use_reloader=True))
+manager.add_command("runserver",Server(host='0.0.0.0',port=5015,use_debugger=False,use_reloader=True))
 
 def main():
     manager.run()

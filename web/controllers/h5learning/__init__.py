@@ -7,7 +7,9 @@ from web.controllers.h5learning.rotationmenu import *
 from web.controllers.h5learning.bottomfish import *
 from web.controllers.h5learning.rotationUI import *
 from web.controllers.h5learning.morningandnight import *
-
+from web.controllers.h5learning.flasfUI import *
+from web.controllers.h5learning.themeslider import *
+from web.controllers.h5learning.simplecard import *
 
 @route_h5learning.route('/')
 def index():

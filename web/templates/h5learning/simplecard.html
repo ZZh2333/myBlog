@@ -1,0 +1,44 @@
+{% extends "/common/layout_main.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ buildStaticUrl('/h5learning/css/simplecard.css') }}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="card" onclick="window.open('bottomfish','self')">
+    <div class="inner">
+        <div class="front">
+            <div class="banner">
+                <img src="{{ buildStaticUrl('/h5learning/img/bottomfish.jpg') }}" alt="banner"
+                    style="width: 300px;height: 200px;">
+            </div>
+            <div class="profile alignment">
+                <img src="{{ buildStaticUrl('/img/me.jpg') }}" alt="avatar" class="avatar">
+                <h3 class="title">Bottomfish</h3>
+                <!-- <h3 class="subtitle">Web Designer</h3> -->
+            </div>
+
+        </div>
+        <div class="back">
+            <div class="alignment">
+                <p class="text" style="width: 300px;">
+                    页面底部养鱼。
+                </p>
+                <!-- <p class="address">
+                    Call-me-phoenix<br>@叫我子涵
+                </p> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}

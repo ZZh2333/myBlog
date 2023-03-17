@@ -10,6 +10,7 @@ from web.controllers.h5learning.morningandnight import *
 from web.controllers.h5learning.flasfUI import *
 from web.controllers.h5learning.themeslider import *
 from web.controllers.h5learning.simplecard import *
+from web.controllers.h5learning.travelpage import *
 
 @route_h5learning.route('/')
 def index():

@@ -1,0 +1,55 @@
+{% extends "common/layout_main.html" %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{{ buildStaticUrl('/h5learning/css/travelpage.css') }}" type="text/css">
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="navbar">
+        <img src="{{ buildStaticUrl('/img/me.jpg') }}" alt="logo" style="height: 40px;">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Region</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+        <img src="{{ buildStaticUrl('/h5learning/img/menu.png') }}" class="menu-icon">
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1>ZZH</h1>
+            <p>
+                中国传媒大学
+            </p>
+            <button type="button">Explore</button>
+        </div>
+        <div class="col">
+            <div class="card1 card">
+                <h5>电子信息</h5>
+                <p> 游戏开发工程师</p>
+            </div>
+            <div class="card2 card">
+                <h5>电子信息</h5>
+                <p> 游戏开发工程师</p>
+            </div>
+            <div class="card3 card">
+                <h5>电子信息</h5>
+                <p> 游戏开发工程师</p>
+            </div>
+            <div class="card4 card">
+                <h5>电子信息</h5>
+                <p> 游戏开发工程师</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}

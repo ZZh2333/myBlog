@@ -1,0 +1,49 @@
+{% extends "common/layout_main.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+<!-- 引入marked.js文件 -->
+<script src="//cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+    /* 自定义样式 */
+    pre {
+        background-color: #f8f8f8;
+        border: 1px solid #ccc;
+        padding: 10px;
+        overflow: auto;
+    }
+
+    img {
+        max-width: 100%;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div id="content"></div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    // 获取markdown文件的路径
+    const mdPath = '../../static/md/test.md';
+
+    // 使用fetch获取markdown文件的内容
+    fetch(mdPath)
+        .then(res => res.text())
+        .then(md => {
+            // 将markdown转换成HTML并插入页面中
+            const content = document.querySelector('#content');
+            content.innerHTML = marked.parse(md);
+
+            // 对代码进行高亮显示
+            document.querySelectorAll('pre code').forEach(block => {
+                hljs.highlightBlock(block);
+            });
+        });
+</script>
+{% endblock %}

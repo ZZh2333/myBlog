@@ -7,8 +7,10 @@
 <link href="{{ buildStaticUrl('/index/css/style.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ buildStaticUrl('/index/css/custom.css') }}" rel="stylesheet" type="text/css">
 
-<!-- 旋转UI -->
-<link href="{{ buildStaticUrl('/h5learning/css/rotationUI.css') }}" rel="stylesheet" type="text/css">
+<!-- 旋转菜单 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link href="{{ buildStaticUrl('/h5learning/css/rotationmenu.css') }}" rel="stylesheet" type="text/css">
+<!-- /旋转菜单 -->
 
 {% endblock %}
 
@@ -23,6 +25,57 @@
 	<div class="top-light"></div>
 	<div class="page-content">
 		<div class="fullpage">
+
+
+			<!-- HOME SECTION -->
+			<div id="home" class="section active">
+
+				<!-- TITLE -->
+				<h1 class="snow-text">清涵的小窝</h1>
+				<!-- COUNTER -->
+
+				<!-- 旋转菜单 -->
+				<div class="menu-box">
+					<nav class="menu">
+						<input type="checkbox" class="menu-toggler" id="menu-toggler" />
+						<label for="menu-toggler"></label>
+						<ul>
+							<li class="menu-item">
+								<a href="{{ buildUrl('/h5learning/markdown') }}" class="fa fa-weibo"></a>
+							</li>
+							<li class="menu-item">
+								<a href="javascript:void(0)" class="fa fa-youtube"></a>
+							</li>
+							<li class="menu-item">
+								<a href="{{ buildUrl('/blog') }}" class="fa fa-book"></a>
+							</li>
+							<li class="menu-item">
+								<a href="javascript:void(0)" class="fa fa-qq"></a>
+							</li>
+							<li class="menu-item">
+								<a href="javascript:void(0)" class="fa fa-weixin"></a>
+							</li>
+							<li class="menu-item">
+								<a href="javascript:void(0)" class="fa fa-github"></a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+				<!-- /旋转菜单 -->
+
+			</div>
+
+
+
+			
+			<!-- INFO SECTION -->
+			<!-- <div id="info" class="section">
+				<div class="container">
+
+
+					
+				</div>
+			</div> -->
 
 
 
@@ -40,8 +93,5 @@
 <script type="text/javascript" src="{{ buildStaticUrl('/index/js/snowy.js') }}"></script>
 <script type="text/javascript" src="{{ buildStaticUrl('/index/js/script.js') }}"></script>
 <script type="text/javascript" src="{{ buildStaticUrl('/index/js/custom.js') }}"></script>
-
-<!-- 旋转UI -->
-<script src="{{buildStaticUrl('/h5learning/js/rotationUI.js')}}"></script>
 
 {% endblock %}

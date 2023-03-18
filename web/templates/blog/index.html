@@ -1,0 +1,91 @@
+{% extends "blog/layout_blog.html" %}
+
+{% block content %}
+<!-- 背景栏 -->
+<section class="home bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="home-wrapper">
+                    
+                    <h1 class="animated fadeInDown wow" data-wow-delay=".1s">个人笔记</h1>
+                    <!-- <h4 class="page-sub-title animated fadeInDown wow" data-wow-delay=".3s">From our Blog</h4> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /背景栏 -->
+
+
+
+<!-- Blog -->
+<section class="section blog-section">
+    <div class="container">
+        <div class="row">
+            <div class="blog-wrapper masonry clearfix">
+
+                <!-- 单页blog -->
+                <div class="blog-item">
+                    <div class="blog-post">
+                        <div class="post-media">
+                            <a href="{{ buildUrl('/blog/steamcmdinstall') }}">
+                                <img src="{{ buildStaticUrl('/blog/img/Linux.jpg') }}" alt="blog post with image"
+                                    class="img-responsive" />
+                            </a>
+                        </div>
+                        <!-- .post-media end -->
+
+                        <article class="post-body">
+                            <div class="post-info">
+                                <div class="date">
+                                    <span class="day">18</span><br />
+                                    <span class="month">3</span>
+                                </div>
+
+                                <div class="meta-container">
+                                    <a href="{{ buildUrl('/blog/steamcmdinstall') }}">
+                                        <h3>在Linux系统下安装SteamCMD</h3>
+                                    </a>
+                                    <ul class="meta">
+                                        <!-- <li class="ion-person">
+                                            <a href="#">Coderthemes</a>
+                                        </li> -->
+
+                                        <li class="post-tags ion-pricetags">
+                                            <a href="#">Linux 游戏服务器搭建</a>
+                                            <!-- <a href="#">Linux</a> -->
+                                            <!-- <a href="#">standard </a> -->
+                                        </li><!-- .post-tags end -->
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s.
+                                Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+                                eveniet voluptates.Sed dui lorem, adipiscing in adipiscing et.
+                            </p> -->
+
+                            <div class="text-right">
+                                <a href="{{ buildUrl('/blog/steamcmdinstall') }}" class="read-more text-uppercase">查看 <i
+                                        class="ion-arrow-right-c"></i></a>
+                            </div>
+                        </article>
+                        <!-- .post-body end -->
+                    </div>
+                    <!-- .blog-post.format-standard end -->
+                </div>
+                <!-- /单页blog -->
+
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- END Blog-->
+
+{% endblock %}

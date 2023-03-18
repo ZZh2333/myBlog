@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>My Blog</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+  <title>Markdown to HTML</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-  <h1>My Blog</h1>
-
-  <h2>Code Sample</h2>
-
-  <pre><code class="language-javascript" data-clipboard-text="console.log('Hello, World!');">
-console.log('Hello, World!');
-  </code></pre>
-
-  <button class="btn" data-clipboard-target="code">Copy</button>
-
-  <h2>Image</h2>
-
-  <img src="https://www.example.com/image.jpg" alt="Example Image">
-
-  <script>
-    var clipboard = new ClipboardJS('.btn');
-  </script>
+  <div id="markdown"></div>
 </body>
+
+<script>
+  // 获取markdown文档的URL
+  const markdownUrl = '../../static/blog/md/在Linux系统下安装SteamCMD.md';
+  
+  // 使用Ajax获取markdown文档内容
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', markdownUrl);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // 将markdown文档转换为HTML代码
+      const markdownHtml = marked.parse(xhr.responseText);
+      
+      // 将HTML代码插入到div元素中
+      document.getElementById('markdown').innerHTML = markdownHtml;
+    }
+  };
+  xhr.send();
+</script>
+
 </html>

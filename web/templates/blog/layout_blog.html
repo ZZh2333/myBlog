@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <title>清涵不是寒</title>
+    <link rel="shortcut icon" href="{{ buildStaticUrl('/img/favicon.ico') }}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ buildStaticUrl('/blog/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Animate -->
+    <link href="{{ buildStaticUrl('/blog/css/animate.css') }}" rel="stylesheet">
+
+    <!-- Magnific-popup -->
+    <link rel="stylesheet" href="{{ buildStaticUrl('/blog/css/magnific-popup.css') }}">
+
+    <!-- Icon-font -->
+    <link rel="stylesheet" type="text/css" href="{{ buildStaticUrl('/blog/css/ionicons.min.css') }}">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ buildStaticUrl('/blog/css/style.css') }}" rel="stylesheet">
+
+
+    {% block css %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <!-- 导航栏 -->
+    <div class="navbar navbar-custom sticky navbar-abs" role="navigation">
+        <div class="container">
+            <!-- Navbar-header -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <i class="ion-navicon"></i>
+                </button>
+                <!-- LOGO -->
+                <a class="navbar-brand logo" href="{{ buildUrl('/blog') }}">
+                    <!-- <i class="ion-social-buffer"></i> -->
+                    <span>清涵的小窝</span>
+                </a>
+            </div>
+            <!-- end navbar-header -->
+
+            <!-- menu -->
+            <!-- <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#features">Features</a>
+                    </li>
+                    <li>
+                        <a href="#services">Services</a>
+                    </li>
+                    <li>
+                        <a href="#screenshots">Screenshots</a>
+                    </li>
+                    <li>
+                        <a href="#pricing">Pricing</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown">
+                            Pages
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu arrow">
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="faq.html">Faq</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="blog-post.html">Blog-Post</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div> -->
+            <!--/Menu -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- /导航栏 -->
+
+
+    {% block content %}
+    {% endblock %}
+
+
+    <!-- 底页 -->
+    <section class="section bg-dark footer-cta">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <!-- <h4 class="text-uppercase animated fadeInDown wow" data-wow-delay=".1s">We are Here to Help You</h4> -->
+                    <h1 class="animated fadeInDown wow" data-wow-delay=".3s">欢迎访问清涵的博客站</h1>
+                    <a href="{{ buildUrl('/') }}" class="btn btn-custom btn-rnd animated fadeInDown wow" data-wow-delay=".5s">首页</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /底页 -->
+
+
+
+    {% block js %}
+
+
+    {% endblock %}
+
+</body>

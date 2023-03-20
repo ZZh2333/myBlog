@@ -3,6 +3,7 @@ from flask import Blueprint,render_template
 route_blog = Blueprint('blog_page',__name__)
 
 from web.controllers.blog.steamcmdinstall import *
+from web.controllers.blog.maoxiandao import *
 
 @route_blog.route('/')
 def index():

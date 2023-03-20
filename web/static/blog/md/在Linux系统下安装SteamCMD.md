@@ -78,7 +78,7 @@ app_update 896660
 exit
 ```
 
-# <a id="Third Part"></a>三、常用游戏服务器代码
+# <a id="ThirdPart"></a>三、常用游戏服务器代码
 
 查阅网址：[Steam 游戏信息整合查询](http://steamdb.sinaapp.com/)
 

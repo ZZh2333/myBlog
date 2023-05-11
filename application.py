@@ -17,6 +17,15 @@ class Application(Flask):
 
 db = SQLAlchemy()
 app = Application(__name__,template_folder=os.getcwd()+'/web/templates',root_path=os.getcwd())
+
+# 处理跨域问题
+@app.after_request
+def add_cors_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,DELETE,OPTIONS'
+    return response
+
 manager = Manager(app)
 
 # 函数模板,使得在html中也可以调用python方法

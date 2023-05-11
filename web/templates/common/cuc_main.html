@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <title>舆情分析与社会计算</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="{{ buildStaticUrl('/img/favicon.ico') }}">
+
+    <!-- css -->
+    <link href="{{ buildStaticUrl('/musicGen/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ buildStaticUrl('/musicGen/css/fancybox/jquery.fancybox.css') }}" rel="stylesheet">
+    <!-- <link href="{{ buildStaticUrl('/musicGen/css/jcarousel.css') }}" rel="stylesheet" /> -->
+    <link href="{{ buildStaticUrl('/musicGen/css/flexslider.css') }}" rel="stylesheet" />
+    <!-- <link href="{{ buildStaticUrl('/musicGen/js/owl-carousel/owl.carousel.css') }}" rel="stylesheet"> -->
+    <link href="{{ buildStaticUrl('/musicGen/css/style.css') }}" rel="stylesheet" />
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js') }}"></script>
+    <![endif]-->
+
+    {% block css %}
+    {% endblock %}
+
+</head>
+
+<body>
+    <div id="wrapper" class="home-page">
+        <div class="topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="pull-left hidden-xs">中国传媒大学</p>
+                        <p class="pull-right">
+                            <a>
+                                <i class="fa fa-user" style="color: white;"></i>
+                                <b style="color: white;">邹子涵&nbsp沈旭阳</b>
+                            </a>
+                        </p>
+                        <p class="pull-right">
+                            <i class="fa fa-envelope-o"></i>13164108610@163.com&nbsp&nbsp&nbsp;
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- start header -->
+        <header>
+            <div class="navbar navbar-default navbar-static-top" style="background-color: #0f3aa7;">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{buildUrl('/')}}">
+                            <img src="{{ buildStaticUrl('/img/cuclogo.png') }}" style="height: 200%;" alt="logo" />
+                        </a>
+                    </div>
+                    <div class="navbar-collapse collapse ">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="{{buildUrl('/')}}">首页</a></li>
+                            <li class="dropdown">
+                                <a data-toggle="dropdown" class="dropdown-toggle" style="cursor: pointer;">词云 <b class="caret"></b></a>
+                                <ul class="dropdown-menu" style="opacity: 0.7;">
+                                    <li><a href="{{buildUrl('/wordcloud/MarvelWordCloud')}}">词云-电影《复仇者联盟4：终局之战》</a></li>
+
+                                    <li><a href="{{buildUrl('/wordcloud/cucnews')}}">词云-中传要闻</a></li>
+                                    <li><a href="{{buildUrl('/wordcloud/doubanciyun')}}">词云-豆瓣读书top250</a></li>
+                                    <li><a href="{{buildUrl('/wordcloud/moviekill')}}">词云-电影《刺杀小说家》</a></li>
+                                    <li><a href="{{buildUrl('/wordcloud/moviesunrise')}}">词云-电影《太阳照常升起》</a></li>
+                                    
+                                    <!-- <li><a href="#">News</a></li> -->
+                                    <!-- <li><a href="#">Investors</a></li> -->
+                                </ul>
+                            </li>
+                            <li><a href="{{buildUrl('/crawier')}}">爬虫</a></li>
+                            <!-- <li><a href="{{buildUrl('/socialnetwork')}}">社交网络</a></li> -->
+                            <li class="dropdown">
+                              <a data-toggle="dropdown" class="dropdown-toggle" style="cursor: pointer;">社交网络 <b class="caret"></b></a>
+                              <ul class="dropdown-menu" style="opacity: 0.7;">
+                                <li><a href="{{buildUrl('/socialnetwork/MarvelData')}}">d3力导向图-漫威人物关系</a></li>
+
+                                  <li><a href="{{buildUrl('/socialnetwork/facebook')}}">d3力导向图-facebook餐饮企业社交网络</a></li>
+                                  <li><a href="{{buildUrl('/socialnetwork/renmin')}}">d3力导向图-《人民的名义》</a></li>
+                                  <li><a href="{{buildUrl('/socialnetwork/github')}}">d3力导向图-GitHub</a></li>
+                                  <li><a href="{{buildUrl('/socialnetwork/example')}}">d3力导向图-示例</a></li>
+                                  <!-- <li><a href="#">News</a></li> -->
+                                  <!-- <li><a href="#">Investors</a></li> -->
+                              </ul>
+                          </li>
+                            <!-- <li><a href="portfolio.html">Portfolio</a></li> -->
+                            <!-- <li><a href="pricing.html">Pricing</a></li> -->
+                            <!-- <li><a href="contact.html">Contact</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- end header -->
+
+        {% block content %}
+        {% endblock %}
+
+        <footer>
+            <div id="sub-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="copyright">
+                                <p>
+                                    Copyright &copy; 2021.Communication University of China.中国传媒大学<a target="_blank"
+                                        href="http://sc.chinaz.com/moban/">：邹子涵、沈旭阳</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="social-network">
+                                <li><a href="{{ buildUrl('/tableau/tableauserver') }}" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li><a href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                                <li><a href="#" data-placement="top" title="Pinterest"><i
+                                            class="fa fa-pinterest"></i></a></li>
+                                <li>
+                                    <a href="#" data-placement="top" title="Google plus">
+                                        <i class="fa fa-google-plus"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+    <!-- javascript================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ buildStaticUrl('/musicGen/js/jquery.js') }}"></script>
+    <script src="{{ buildStaticUrl('/musicGen/js/jquery.easing.1.3.js') }}"></script>
+    <script src="{{ buildStaticUrl('/musicGen/js/bootstrap.min.js') }}"></script>
+    <script src="{{ buildStaticUrl('/musicGen/js/jquery.fancybox.pack.js') }}"></script>
+    <script src="{{ buildStaticUrl('/musicGen/js/jquery.fancybox-media.js') }}"></script>
+    <script src="{{ buildStaticUrl('/musicGen/js/jquery.flexslider.js') }}"></script>
+    <script src="{{ buildStaticUrl('/musicGen/js/animate.js') }}"></script>
+    <!-- Vendor Scripts -->
+    <script src="{{ buildStaticUrl('/musicGen/js/modernizr.custom.js') }}"></script>
+    <script src="{{ buildStaticUrl('/musicGen/js/jquery.isotope.min.js') }}"></script>
+    <script src="{{ buildStaticUrl('/musicGen/js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ buildStaticUrl('/musicGen/js/animate.js') }}"></script>
+    <script src="{{ buildStaticUrl('/musicGen/js/custom.js') }}"></script>
+    <!-- <script src="{{ buildStaticUrl('/musicGen/js/owl-carousel/owl.carousel.js') }}"></script> -->
+
+    
+<!-- <script>
+    "use strict";
+    
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+    
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+    
+    var Progress = function () {
+      function Progress() {
+        var param = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    
+        _classCallCheck(this, Progress);
+    
+        this.timestamp = null;
+        this.duration = param.duration || Progress.CONST.DURATION;
+        this.progress = 0;
+        this.delta = 0;
+        this.progress = 0;
+        this.isLoop = !!param.isLoop;
+    
+        this.reset();
+      }
+    
+      Progress.prototype.reset = function reset() {
+        this.timestamp = null;
+      };
+    
+      Progress.prototype.start = function start(now) {
+        this.timestamp = now;
+      };
+    
+      Progress.prototype.tick = function tick(now) {
+        if (this.timestamp) {
+          this.delta = now - this.timestamp;
+          this.progress = Math.min(this.delta / this.duration, 1);
+    
+          if (this.progress >= 1 && this.isLoop) {
+            this.start(now);
+          }
+    
+          return this.progress;
+        } else {
+          return 0;
+        }
+      };
+    
+      _createClass(Progress, null, [{
+        key: "CONST",
+        get: function get() {
+          return {
+            DURATION: 1000
+          };
+        }
+      }]);
+    
+      return Progress;
+    }();
+    
+    var Confetti = function () {
+      function Confetti(param) {
+        _classCallCheck(this, Confetti);
+    
+        this.parent = param.elm || document.body;
+        this.canvas = document.createElement("canvas");
+        this.ctx = this.canvas.getContext("2d");
+        this.width = param.width || this.parent.offsetWidth;
+        this.height = param.height || this.parent.offsetHeight;
+        this.length = param.length || Confetti.CONST.PAPER_LENGTH;
+        this.yRange = param.yRange || this.height * 3;
+        this.progress = new Progress({
+          duration: param.duration,
+          isLoop: true
+        });
+        this.rotationRange = typeof param.rotationLength === "number" ? param.rotationRange : 10;
+        this.speedRange = typeof param.speedRange === "number" ? param.speedRange : 10;
+        this.sprites = [];
+    
+        this.canvas.style.cssText = ["display: block", "position: absolute", "top: 0", "left: 0", "pointer-events: none"].join(";");
+    
+        this.render = this.render.bind(this);
+    
+        this.build();
+    
+        this.parent.append(this.canvas);
+        this.progress.start(performance.now());
+    
+        requestAnimationFrame(this.render);
+      }
+    
+      Confetti.prototype.build = function build() {
+        for (var i = 0; i < this.length; ++i) {
+          var canvas = document.createElement("canvas"),
+              ctx = canvas.getContext("2d");
+    
+          canvas.width = Confetti.CONST.SPRITE_WIDTH;
+          canvas.height = Confetti.CONST.SPRITE_HEIGHT;
+    
+          canvas.position = {
+            initX: Math.random() * this.width,
+            initY: -canvas.height - Math.random() * this.yRange
+          };
+    
+          canvas.rotation = this.rotationRange / 2 - Math.random() * this.rotationRange;
+          canvas.speed = this.speedRange / 2 + Math.random() * (this.speedRange / 2);
+    
+          ctx.save();
+          ctx.fillStyle = Confetti.CONST.COLORS[Math.random() * Confetti.CONST.COLORS.length | 0];
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.restore();
+    
+          this.sprites.push(canvas);
+        }
+      };
+    
+      Confetti.prototype.render = function render(now) {
+        var progress = this.progress.tick(now);
+    
+        this.canvas.width = this.width;
+        this.canvas.height = this.height * 1.5;
+    
+        for (var i = 0; i < this.length; ++i) {
+          this.ctx.save();
+          this.ctx.translate(this.sprites[i].position.initX + this.sprites[i].rotation * Confetti.CONST.ROTATION_RATE * progress, this.sprites[i].position.initY + progress * (this.height + this.yRange));
+          this.ctx.rotate(this.sprites[i].rotation);
+          this.ctx.drawImage(this.sprites[i], -Confetti.CONST.SPRITE_WIDTH * Math.abs(Math.sin(progress * Math.PI * 2 * this.sprites[i].speed)) / 2, -Confetti.CONST.SPRITE_HEIGHT / 2, Confetti.CONST.SPRITE_WIDTH * Math.abs(Math.sin(progress * Math.PI * 2 * this.sprites[i].speed)), Confetti.CONST.SPRITE_HEIGHT);
+          this.ctx.restore();
+        }
+    
+        requestAnimationFrame(this.render);
+      };
+    
+      _createClass(Confetti, null, [{
+        key: "CONST",
+        get: function get() {
+          return {
+            SPRITE_WIDTH: 9,
+            SPRITE_HEIGHT: 16,
+            PAPER_LENGTH: 100,
+            DURATION: 8000,
+            ROTATION_RATE: 50,
+            COLORS: ["#EF5350", "#EC407A", "#AB47BC", "#7E57C2", "#5C6BC0", "#42A5F5", "#29B6F6", "#26C6DA", "#26A69A", "#66BB6A", "#9CCC65", "#D4E157", "#FFEE58", "#FFCA28", "#FFA726", "#FF7043", "#8D6E63", "#BDBDBD", "#78909C"]
+          };
+        }
+      }]);
+    
+      return Confetti;
+    }();
+    
+    (function () {
+      var DURATION = 8000,
+          LENGTH = 120;
+    
+      new Confetti({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        length: LENGTH,
+        duration: DURATION
+      });
+    
+      setTimeout(function () {
+        new Confetti({
+          width: window.innerWidth,
+          height: window.innerHeight,
+          length: LENGTH,
+          duration: DURATION
+        });
+      }, DURATION / 2);
+    })();
+    </script> -->
+
+    {% block js %}
+    {% endblock %}
+</body>
+
+</html>

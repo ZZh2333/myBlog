@@ -59,15 +59,24 @@ ul.withArrow li{
 	
 }
 ul.withArrow li span{
-	margin-right: 10px;
-	font-weight: 700;
-	color: #29448e;
-	border: 1px solid;
-	padding: 4px 8px;
-	font-size: 11px;
-	border-radius: 50%;
-	height: 20px;
-	width: 20px;
+	
+margin-right: 10px;
+	
+font-weight: 700;
+	
+color: #29448e;
+	
+border: 1px solid;
+	
+padding: 4px 8px;
+	
+font-size: 11px;
+	
+border-radius: 50%;
+	
+height: 20px;
+	
+width: 20px;
 }
 .widget {
     color: #858585;
@@ -1157,7 +1166,8 @@ color: #222;
 	color:#fff;
 }
 .pricing-box-item.activeItem .pricing-heading h3 {
-	 color: #fff;
+	 
+color: #fff;
 }
 
 .pricing-box-item .pricing-heading h3 strong {
@@ -1320,7 +1330,7 @@ footer .widget .flickr_badge img {
 
   
 footer{
-	padding:50px 0 0 0;
+	padding:0px 0 0 0;
 	color:#f8f8f8;
 }
 

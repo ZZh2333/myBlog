@@ -1,0 +1,257 @@
+{% extends "common/musicgen_main.html" %}
+
+{% block css %}
+<style>
+    #upload {
+        border: 3px dashed gray;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+        font-size: 18px;
+        color: gray;
+        background: white;
+        margin: 30px auto;
+        width: 100%;
+        height: 200px;
+    }
+
+    #upload input[type=file] {
+        display: none;
+    }
+
+    #upload label {
+        display: block;
+        margin: 100px auto;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #upload label:hover {
+        background-color: #0062cc;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2 class="pageTitle">模型参数选择</h2>
+            </div>
+            <div class="col-lg-4">
+                <a href="{{ buildUrl('/musicGen/music') }}" class="btn btn-primary" style="margin-top: 30px; margin-left: 230px;">生成音乐</a>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="about home-about">
+    <div class="container">
+
+        <div class="row">
+            <!-- <div class="col-md-4">
+                <div class="block-heading-two">
+                    <h3><span>模型参数</span></h3>
+                </div>
+                <p>Sed ut perspiciaatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+                    aspernatur. <br><br>Sed ut perspiciaatis iste natus error sit voluptatem probably haven't
+                    heard of them accusamus.
+                </p>
+            </div> -->
+            <div class="col-md-4">
+                <div class="block-heading-two">
+                    <h3><span>图像动机生成参数选择</span></h3>
+                </div>
+                <!-- Accordion starts -->
+                <div class="panel-group" id="accordion-alt3">
+                    <!-- Panel. Use "panel-XXX" class for different colors. Replace "XXX" with color. -->
+                    <div class="panel-Red">
+                        <!-- Panel heading -->
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseOne-alt3">
+                                    <i class="fa fa-angle-right"></i> 隐含层层数
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne-alt3" class="panel-collapse collapse in">
+                            <!-- Panel body -->
+
+                            <div class="panel-body">
+                                <table class="table">
+
+                                    <ul>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="" data-toggle="checkbox">
+                                            <i class="icon-ok"></i> 0层
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="" data-toggle="checkbox">
+                                            <i class="icon-ok"></i> 1层
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="" data-toggle="checkbox">
+                                            <i class="icon-ok"></i> 2层
+                                        </label><label class="checkbox">
+                                            <input type="checkbox" value="" data-toggle="checkbox">
+                                            <i class="icon-ok"></i> 3层
+                                        </label>
+
+                                    </ul>
+                                </table>
+                            </div>
+
+                            <!-- <div class="panel-body">
+                                Sed ut perspiciaatis unde omnis iste natus error sit voluptatem accusantium
+                                doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+                                veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
+                                voluptatem quia voluptas
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="panel-Red">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseThree-alt3">
+                                    <i class="fa fa-angle-right"></i> 隐含层节点数
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree-alt3" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <table class="table">
+
+                                    <ul>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="" data-toggle="checkbox">
+                                            <i class="icon-ok"></i> 10个
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="" data-toggle="checkbox">
+                                            <i class="icon-ok"></i> 20个
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="" data-toggle="checkbox">
+                                            <i class="icon-ok"></i> 30个
+                                        </label>
+
+                                    </ul>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion ends -->
+
+            </div>
+            <div class="col-md-4">
+                <div class="block-heading-two">
+                    <h3><span>动机音乐生成参数选择</span></h3>
+                </div>
+                <!-- Accordion starts -->
+                <div class="panel-group" id="accordion-alt3">
+                    <!-- Panel. Use "panel-XXX" class for different colors. Replace "XXX" with color. -->
+                    <div class="panel-Red">
+                        <!-- Panel heading -->
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseTwo-alt3">
+                                    <i class="fa fa-angle-right"></i> Mask机制掩蔽率
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo-alt3" class="panel-collapse collapse in">
+                            <!-- Panel body -->
+
+                            <div class="panel-body">
+                                <table class="table">
+
+                                    <ul>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="" data-toggle="checkbox">
+                                            <i class="icon-ok"></i> 0%掩蔽
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="" data-toggle="checkbox">
+                                            <i class="icon-ok"></i> 25%掩蔽
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="" data-toggle="checkbox">
+                                            <i class="icon-ok"></i> 50%掩蔽
+                                        </label><label class="checkbox">
+                                            <input type="checkbox" value="" data-toggle="checkbox">
+                                            <i class="icon-ok"></i> 75%掩蔽
+                                        </label>
+
+                                    </ul>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- Accordion ends -->
+
+            </div>
+            <div class="col-md-4">
+                <div class="block-heading-two">
+                    <h3><span>图像上传</span></h3>
+                </div>
+                <div class="testimonials">
+                    <div class="active item">
+                        <div id="upload">
+                            <p style="margin-top: 80px;">将图片拖到此区域或者点击按钮上传</p>
+                            <label for="file-upload">选择文件</label>
+                            <input id="file-upload" type="file" accept="image/*" onchange="loadFile(event)">
+                            
+
+                        </div>
+
+                        <!-- <blockquote>
+                            <p>Lorem ipsum dolor met consectetur adipisicing. Aorem psum dolor met consectetur
+                                adipisicing sit amet, consectetur adipisicing elit, of them jean shorts sed
+                                magna aliqua. Lorem ipsum dolor met.</p>
+                        </blockquote>
+                        <div class="carousel-info">
+                            
+                            <div class="pull-left">
+                                <span class="testimonials-name">Marc Cooper</span>
+                                <span class="testimonials-post">Technical Director</span>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <br>
+
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script>
+    function loadFile(event) {
+        var image = document.createElement('img');
+        image.src = URL.createObjectURL(event.target.files[0]);
+        document.body.appendChild(image);
+    }
+</script>
+{% endblock %}

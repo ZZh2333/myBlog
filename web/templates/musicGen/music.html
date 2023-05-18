@@ -1,71 +1,337 @@
-{% extends "common/musicplay_main.html" %}
+{% extends "common/musicgen_main.html" %}
 
 {% block css %}
-<link rel="stylesheet" href="{{ buildStaticUrl('/musicGen/music/css/style.css') }}">
-<link rel="stylesheet" href="{{ buildStaticUrl('/musicGen/music/font/iconfont.css') }}">
+<style>
+    /* Custom player style */
+    #section3 midi-player {
+        display: block;
+        width: inherit;
+        margin: 4px;
+        margin-bottom: 0;
+    }
+
+    #section3 midi-player::part(control-panel) {
+        background: #2e8eda;
+        border: 2px solid #000;
+        border-radius: 10px 10px 0 0;
+    }
+
+    #section3 midi-player::part(play-button) {
+        color: #353;
+        border: 2px solid currentColor;
+        background-color: #fff;
+        border-radius: 20px;
+        transition: all 0.2s;
+        content: 'hello';
+    }
+
+    #section3 midi-player::part(play-button):hover {
+        color: #0a0;
+        background-color: #e0e0e0;
+        border-radius: 10px;
+    }
+
+    #section3 midi-player::part(time) {
+        font-family: monospace;
+    }
+
+    /* Custom visualizer style */
+    #section3 midi-visualizer .piano-roll-visualizer {
+        background: #fff;
+        border: 2px solid black;
+        border-top: none;
+        border-radius: 0 0 10px 10px;
+        margin: 4px;
+        margin-top: 0;
+        overflow: auto;
+    }
+
+    #section3 midi-visualizer svg rect.note {
+        opacity: 0.6;
+        stroke-width: 2;
+    }
+
+    #section3 midi-visualizer svg rect.note[data-instrument="0"] {
+        fill: #e22;
+        stroke: #500;
+    }
+
+    #section3 midi-visualizer svg rect.note[data-instrument="2"] {
+        fill: #2ee;
+        stroke: #055;
+    }
+
+    #section3 midi-visualizer svg rect.note[data-is-drum="true"] {
+        fill: #888;
+        stroke: #888;
+    }
+
+    #section3 midi-visualizer svg rect.note.active {
+        opacity: 0.9;
+        stroke: #000;
+    }
+</style>
 {% endblock %}
 
 
 {% block content %}
 
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2 class="pageTitle" style="color: #2e8eda;">生成音乐播放</h2>
+                <br>
+                <br>
+            </div>
+            <!-- <div class="col-lg-4">
+                <a href="{{ buildUrl('/musicGen/music') }}" class="btn btn-primary"
+                    style="margin-top: 30px; margin-left: 230px;">生成音乐</a>
 
-<section>
-    <div id="player">
-    
-        <!-- 歌曲信息模块 -->
-        <div id="player-content1">
-            <!-- 歌曲名 -->
-            <div class="music-name"></div>
-            <!-- 歌手名 -->
-            <div class="artist-name"></div>
-            <!-- 歌曲时间 -->
-            <div class="time">
-                <!-- 当前播放的时间 -->
-                <div class="current-time"></div>
-                <!-- 歌曲总时长 -->
-                <div class="total-time"></div>
-            </div>
-            <!-- 进度条 -->
-            <div id="s-area">
-                <!-- 鼠标移动到进度条上，显示的时间信息 -->
-                <div id="ins-time"></div>
-                <!-- 鼠标移动到进度条上，进度条变暗部分-->
-                <div id="s-hover"></div>
-                <!-- 表示当前歌曲播放进度的蓝色进度条 -->
-                <div id="seek-bar"></div>
-            </div>
-        </div>
-
-        <!-- 控制模块 -->
-        <div id="player-content2">
-            <!-- 左侧歌曲封面旋转模块 -->
-            <div class="music-imgs">
-                <!-- 封面图 -->
-                <div class="img"></div>
-                <!-- 歌曲缓冲时的提示文字 -->
-                <div id="buffer-box">缓冲…</div>
-            </div>
-            <!-- 右侧歌曲操作模块 -->
-            <div class="player-controls">
-                <!-- 上一首按钮 -->
-                <div class="btn prev iconfont">&#xe603;</div>
-                <!-- 暂停/播放 按钮 -->
-                <div class="btn play-pause icon-jiediankaishi iconfont"></div>
-                <!-- 下一首按钮 -->
-                <div class="btn next iconfont">&#xe602;</div>
+            </div> -->
+            <!-- <br> -->
+            <div class="col-lg-12">
+                <section id="section3">
+                    <!-- <h2>Custom player and visualizer style</h2> -->
+                    <midi-player src="{{ buildStaticUrl('/musicGen/music/midi/picMusic1.mid') }}" sound-font
+                        visualizer="#section3 midi-visualizer">
+                    </midi-player>
+                    <midi-visualizer src="{{ buildStaticUrl('/musicGen/music/midi/picMusic1.mid') }}">
+                    </midi-visualizer>
+                </section>
             </div>
         </div>
         
     </div>
+</div>
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2 class="pageTitle">生成质量调查</h2>
+            </div>
+            <!-- <div class="col-lg-4">
+                <a href="{{ buildUrl('/musicGen/music') }}" class="btn btn-primary" style="margin-top: 30px; margin-left: 230px;">生成音乐</a>
+
+            </div> -->
+        </div>
+    </div>
 </section>
+
+<div class="about home-about">
+    
+
+    <div class="container">
+
+        <div class="row">
+            <!-- <div class="col-md-4">
+                <div class="block-heading-two">
+                    <h3><span>模型参数</span></h3>
+                </div>
+                <p>Sed ut perspiciaatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+                    aspernatur. <br><br>Sed ut perspiciaatis iste natus error sit voluptatem probably haven't
+                    heard of them accusamus.
+                </p>
+            </div> -->
+            <div class="col-md-4">
+                <div class="block-heading-two">
+                    <h3><span>图像动机生成参数选择</span></h3>
+                </div>
+                <p>
+                    解释说明
+                </p>
+                <!-- Accordion starts -->
+                <div class="panel-group" id="accordion-alt3">
+                    <!-- Panel. Use "panel-XXX" class for different colors. Replace "XXX" with color. -->
+                    <div class="panel-Red">
+                        <!-- Panel heading -->
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseOne-alt3">
+                                    <i class="fa fa-angle-right"></i> 隐含层层数
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne-alt3" class="panel-collapse collapse in">
+                            <!-- Panel body -->
+
+                            <div class="panel-body">
+                                <table class="table">
+
+                                    <ul>
+                                        <label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="deepNum">
+                                            <i class="icon-ok"></i> 0层
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" checked value="" data-toggle="checkbox" name="deepNum">
+                                            <i class="icon-ok"></i> 1层（论文推荐）
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="deepNum">
+                                            <i class="icon-ok"></i> 2层
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="deepNum">
+                                            <i class="icon-ok"></i> 3层
+                                        </label>
+
+                                    </ul>
+                                </table>
+                            </div>
+
+                            <!-- <div class="panel-body">
+                                Sed ut perspiciaatis unde omnis iste natus error sit voluptatem accusantium
+                                doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+                                veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
+                                voluptatem quia voluptas
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="panel-Red">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseThree-alt3">
+                                    <i class="fa fa-angle-right"></i> 隐含层节点数
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree-alt3" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <table class="table">
+
+                                    <ul>
+                                        <label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="deepPoint">
+                                            <i class="icon-ok"></i> 10个
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" checked value="" data-toggle="checkbox" name="deepPoint">
+                                            <i class="icon-ok"></i> 20个（论文推荐）
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="deepPoint">
+                                            <i class="icon-ok"></i> 30个
+                                        </label>
+
+                                    </ul>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion ends -->
+
+            </div>
+            <div class="col-md-4">
+                <div class="block-heading-two">
+                    <h3><span>动机音乐生成参数选择</span></h3>
+                </div>
+                <p>
+                    解释说明
+                </p>
+                <!-- Accordion starts -->
+                <div class="panel-group" id="accordion-alt3">
+                    <!-- Panel. Use "panel-XXX" class for different colors. Replace "XXX" with color. -->
+                    <div class="panel-Red">
+                        <!-- Panel heading -->
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseTwo-alt3">
+                                    <i class="fa fa-angle-right"></i> Mask机制掩蔽率
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo-alt3" class="panel-collapse collapse in">
+                            <!-- Panel body -->
+
+                            <div class="panel-body">
+                                <table class="table">
+
+                                    <ul>
+                                        <label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="masked">
+                                            <i class="icon-ok"></i> 0%掩蔽
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="masked">
+                                            <i class="icon-ok"></i> 25%掩蔽
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" checked value="" data-toggle="checkbox" name="masked">
+                                            <i class="icon-ok"></i> 50%掩蔽（论文推荐）
+                                        </label><label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="masked">
+                                            <i class="icon-ok"></i> 75%掩蔽
+                                        </label>
+
+                                    </ul>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- Accordion ends -->
+
+            </div>
+            <div class="col-md-4">
+                <div class="block-heading-two">
+                    <h3><span>图像上传</span></h3>
+                </div>
+                <p>
+                    解释说明
+                </p>
+                <div class="testimonials">
+                    <div class="active item">
+                        <div id="upload">
+                            <p style="margin-top: 80px;">将图片拖到此区域或者点击按钮上传</p>
+                            <label for="file-upload">选择文件</label>
+                            <input id="file-upload" type="file" accept="image/*" onchange="loadFile(event)">
+                            
+
+                        </div>
+
+                        <!-- <blockquote>
+                            <p>Lorem ipsum dolor met consectetur adipisicing. Aorem psum dolor met consectetur
+                                adipisicing sit amet, consectetur adipisicing elit, of them jean shorts sed
+                                magna aliqua. Lorem ipsum dolor met.</p>
+                        </blockquote>
+                        <div class="carousel-info">
+                            
+                            <div class="pull-left">
+                                <span class="testimonials-name">Marc Cooper</span>
+                                <span class="testimonials-post">Technical Director</span>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <br>
+
+    </div>
+    
+
+
+</div>
+
+
 
 {% endblock %}
 
 
 {% block js %}
-<script src="{{ buildStaticUrl('/musicGen/music/js/jquery-3.4.1.min.js') }}"></script>
-<script src="{{ buildStaticUrl('/musicGen/music/js/index.js') }}"></script>
-
-
-
+<script
+    src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0">
+</script>
 {% endblock %}

@@ -23,7 +23,7 @@ $(function(){
     var musicImgsData = ['/static/musicGen/music/img/bg.jpg','/static/musicGen/music/img/bg1.jpg','/static/musicGen/music/img/bg2.jpg']    // 图片地址数组
     var musicNameData = ['','',''];                   // 歌曲名数组
     var artistNameData = ['','','']            // 创作歌手数组
-    var musicUrls=['/static/musicGen/music/mp3/music1.mp3','/static/musicGen/music/mp3/music2.mp3','/static/musicGen/music/mp3/music3.mp3'];// 歌曲mp3数组
+    var musicUrls=['/static/musicGen/music/midi/picMusic1.mid','/static/musicGen/music/mp3/music2.mp3','/static/musicGen/music/mp3/music3.mp3'];// 歌曲mp3数组
     var currIndex = -1;              // 当前播放索引
     
     var buffInterval = null          // 初始化定时器 判断是否需要缓冲
@@ -36,13 +36,13 @@ $(function(){
         if(audio.paused){
             playerContent1.addClass('active'); // 内容栏上移
             musicImgs.addClass('active');      // 左侧图片开始动画效果
-            playPauseBtn.attr('class','btn play-pause icon-zanting iconfont') // 显示暂停图标
+            playPauseBtn.attr('class','button play-pause icon-zanting iconfont') // 显示暂停图标
             checkBuffering(); // 检测是否需要缓冲
             audio.play();     // 播放
         }else{
             playerContent1.removeClass('active'); // 内容栏下移
             musicImgs.removeClass('active');      // 左侧图片停止旋转等动画效果
-            playPauseBtn.attr('class','btn play-pause icon-jiediankaishi iconfont'); // 显示播放按钮
+            playPauseBtn.attr('class','button play-pause icon-jiediankaishi iconfont'); // 显示播放按钮
             clearInterval(buffInterval);          // 清除检测是否需要缓冲的定时器
             musicImgs.removeClass('buffering');    // 移除缓冲类名
             audio.pause(); // 暂停
@@ -147,7 +147,7 @@ $(function(){
         // 进度条为100 即歌曲播放完时
 		if( playProgress == 100 )
 		{
-            playPauseBtn.attr('class','btn play-pause icon-jiediankaishi iconfont'); // 显示播放按钮
+            playPauseBtn.attr('class','button play-pause icon-jiediankaishi iconfont'); // 显示播放按钮
 			seekBar.width(0);              // 播放进度条重置为0
             tProgress.text('00:00');       // 播放时间重置为 00:00
             musicImgs.removeClass('buffering').removeClass('active');  // 移除相关类名
@@ -191,10 +191,10 @@ $(function(){
         }
 
         if( flag == 0 ){
-            playPauseBtn.attr('class','btn play-pause icon-jiediankaishi iconfont'); // 显示播放图标
+            playPauseBtn.attr('class','button play-pause icon-jiediankaishi iconfont'); // 显示播放图标
         }else{
             musicImgs.removeClass('buffering');   
-            playPauseBtn.attr('class','btn play-pause icon-zanting iconfont') // 显示暂停图标
+            playPauseBtn.attr('class','button play-pause icon-zanting iconfont') // 显示暂停图标
         }
 
         seekBar.width(0);           // 重置播放进度条为0

@@ -18901,6 +18901,7 @@
             }
             async initialize() {
                 await Object(d.a)(this.baseURL + "/soundfont.json").then(t => t.json()).then(t => {
+                    console.log("111"+this.baseURL + "/soundfont.json"+"222")
                     this.name = t.name;
                     for (const e in t.instruments) {
                         const n = `${this.baseURL}/${t.instruments[e]}`;

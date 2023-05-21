@@ -1,6 +1,7 @@
 {% extends "common/musicgen_main.html" %}
 
 {% block css %}
+<!-- <style src="{{ buildStaticUrl('/musicGen/music/css/musicplayer.css') }}"></style> -->
 <style>
     /* Custom player style */
     #section3 midi-player {
@@ -101,7 +102,7 @@
                 </section>
             </div>
         </div>
-        
+
     </div>
 </div>
 
@@ -120,7 +121,7 @@
 </section>
 
 <div class="about home-about">
-    
+
 
     <div class="container">
 
@@ -209,7 +210,8 @@
                                             <i class="icon-ok"></i> 10个
                                         </label>
                                         <label class="radio">
-                                            <input type="radio" checked value="" data-toggle="checkbox" name="deepPoint">
+                                            <input type="radio" checked value="" data-toggle="checkbox"
+                                                name="deepPoint">
                                             <i class="icon-ok"></i> 20个（论文推荐）
                                         </label>
                                         <label class="radio">
@@ -293,7 +295,7 @@
                             <p style="margin-top: 80px;">将图片拖到此区域或者点击按钮上传</p>
                             <label for="file-upload">选择文件</label>
                             <input id="file-upload" type="file" accept="image/*" onchange="loadFile(event)">
-                            
+
 
                         </div>
 
@@ -320,7 +322,7 @@
         <br>
 
     </div>
-    
+
 
 
 </div>

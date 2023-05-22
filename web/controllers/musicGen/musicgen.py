@@ -10,6 +10,10 @@ def musicgen():
 def compose():
     return render_template('musicGen/compose.html')
 
+@route_musicGen.route('/allmusic')
+def allmusic():
+    return render_template('musicGen/allmusic.html')
+
 @route_musicGen.route('/musicplay')
 def musicplay():
     return render_template('musicGen/musicplay.html')

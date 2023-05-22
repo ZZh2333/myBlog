@@ -113,7 +113,8 @@
                 <h2 class="pageTitle">生成质量调查</h2>
             </div>
             <!-- <div class="col-lg-4">
-                <a href="{{ buildUrl('/musicGen/music') }}" class="btn btn-primary" style="margin-top: 30px; margin-left: 230px;">生成音乐</a>
+                <a href="{{ buildUrl('/musicGen/music') }}" class="btn btn-primary"
+                    style="margin-top: 30px; margin-left: 180px;">提交上传</a>
 
             </div> -->
         </div>
@@ -139,11 +140,11 @@
             </div> -->
             <div class="col-md-4">
                 <div class="block-heading-two">
-                    <h3><span>图像动机生成参数选择</span></h3>
+                    <h3><span>个人信息</span></h3>
                 </div>
-                <p>
+                <!-- <p>
                     解释说明
-                </p>
+                </p> -->
                 <!-- Accordion starts -->
                 <div class="panel-group" id="accordion-alt3">
                     <!-- Panel. Use "panel-XXX" class for different colors. Replace "XXX" with color. -->
@@ -152,7 +153,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseOne-alt3">
-                                    <i class="fa fa-angle-right"></i> 隐含层层数
+                                    <i class="fa fa-angle-right"></i> 年龄段
                                 </a>
                             </h4>
                         </div>
@@ -165,20 +166,20 @@
                                     <ul>
                                         <label class="radio">
                                             <input type="radio" value="" data-toggle="checkbox" name="deepNum">
-                                            <i class="icon-ok"></i> 0层
+                                            <i class="icon-ok"></i> ＜20岁
                                         </label>
                                         <label class="radio">
                                             <input type="radio" checked value="" data-toggle="checkbox" name="deepNum">
-                                            <i class="icon-ok"></i> 1层（论文推荐）
+                                            <i class="icon-ok"></i> 20-30岁
                                         </label>
                                         <label class="radio">
                                             <input type="radio" value="" data-toggle="checkbox" name="deepNum">
-                                            <i class="icon-ok"></i> 2层
+                                            <i class="icon-ok"></i> 30岁以上
                                         </label>
-                                        <label class="radio">
+                                        <!-- <label class="radio">
                                             <input type="radio" value="" data-toggle="checkbox" name="deepNum">
                                             <i class="icon-ok"></i> 3层
-                                        </label>
+                                        </label> -->
 
                                     </ul>
                                 </table>
@@ -196,7 +197,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseThree-alt3">
-                                    <i class="fa fa-angle-right"></i> 隐含层节点数
+                                    <i class="fa fa-angle-right"></i> 性别
                                 </a>
                             </h4>
                         </div>
@@ -206,18 +207,18 @@
 
                                     <ul>
                                         <label class="radio">
-                                            <input type="radio" value="" data-toggle="checkbox" name="deepPoint">
-                                            <i class="icon-ok"></i> 10个
-                                        </label>
-                                        <label class="radio">
                                             <input type="radio" checked value="" data-toggle="checkbox"
                                                 name="deepPoint">
-                                            <i class="icon-ok"></i> 20个（论文推荐）
+                                            <i class="icon-ok"></i> 男
                                         </label>
                                         <label class="radio">
                                             <input type="radio" value="" data-toggle="checkbox" name="deepPoint">
-                                            <i class="icon-ok"></i> 30个
+                                            <i class="icon-ok"></i> 女
                                         </label>
+                                        <!-- <label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="deepPoint">
+                                            <i class="icon-ok"></i> 30个
+                                        </label> -->
 
                                     </ul>
                                 </table>
@@ -225,16 +226,49 @@
                         </div>
                     </div>
 
+                    <div class="panel-Red">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseThree-alt3">
+                                    <i class="fa fa-angle-right"></i> 是否为音乐专业人员
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree-alt3" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <table class="table">
+
+                                    <ul>
+                                        <label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="Sex">
+                                            <i class="icon-ok"></i> 是
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" checked value="" data-toggle="checkbox" name="Sex">
+                                            <i class="icon-ok"></i> 否
+                                        </label>
+                                        <!-- <label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="deepPoint">
+                                            <i class="icon-ok"></i> 30个
+                                        </label> -->
+
+                                    </ul>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <!-- Accordion ends -->
 
             </div>
             <div class="col-md-4">
                 <div class="block-heading-two">
-                    <h3><span>动机音乐生成参数选择</span></h3>
+                    <h3><span>音乐质量评估</span></h3>
                 </div>
                 <p>
-                    解释说明
+                    请对生成的音乐质量进行评估，评分由1-5表示，1表示非常不符合，2表示不符合，3表示一般符合，4表示比较符合，5表示非常符合。
                 </p>
                 <!-- Accordion starts -->
                 <div class="panel-group" id="accordion-alt3">
@@ -244,7 +278,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseTwo-alt3">
-                                    <i class="fa fa-angle-right"></i> Mask机制掩蔽率
+                                    <i class="fa fa-angle-right"></i> 音乐创造性（是否原创）
                                 </a>
                             </h4>
                         </div>
@@ -257,23 +291,106 @@
                                     <ul>
                                         <label class="radio">
                                             <input type="radio" value="" data-toggle="checkbox" name="masked">
-                                            <i class="icon-ok"></i> 0%掩蔽
+                                            <i class="icon-ok"></i> 1
                                         </label>
                                         <label class="radio">
                                             <input type="radio" value="" data-toggle="checkbox" name="masked">
-                                            <i class="icon-ok"></i> 25%掩蔽
+                                            <i class="icon-ok"></i> 2
                                         </label>
                                         <label class="radio">
                                             <input type="radio" checked value="" data-toggle="checkbox" name="masked">
-                                            <i class="icon-ok"></i> 50%掩蔽（论文推荐）
+                                            <i class="icon-ok"></i> 3
                                         </label><label class="radio">
                                             <input type="radio" value="" data-toggle="checkbox" name="masked">
-                                            <i class="icon-ok"></i> 75%掩蔽
+                                            <i class="icon-ok"></i> 4
+                                        </label>
+                                        </label><label class="radio">
+                                            <input type="radio" value="" data-toggle="checkbox" name="masked">
+                                            <i class="icon-ok"></i> 5
                                         </label>
 
                                     </ul>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+
+
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseTwo-alt3">
+                                <i class="fa fa-angle-right"></i> 音乐连贯性（动听悦耳程度）
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo-alt3" class="panel-collapse collapse in">
+                        <!-- Panel body -->
+
+                        <div class="panel-body">
+                            <table class="table">
+
+                                <ul>
+                                    <label class="radio">
+                                        <input type="radio" value="" data-toggle="checkbox" name="music">
+                                        <i class="icon-ok"></i> 1
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" value="" data-toggle="checkbox" name="music">
+                                        <i class="icon-ok"></i> 2
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" checked value="" data-toggle="checkbox" name="music">
+                                        <i class="icon-ok"></i> 3
+                                    </label><label class="radio">
+                                        <input type="radio" value="" data-toggle="checkbox" name="music">
+                                        <i class="icon-ok"></i> 4
+                                    </label>
+                                    </label><label class="radio">
+                                        <input type="radio" value="" data-toggle="checkbox" name="music">
+                                        <i class="icon-ok"></i> 5
+                                    </label>
+
+                                </ul>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseTwo-alt3">
+                                <i class="fa fa-angle-right"></i> 音乐情感与图像符合程度
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo-alt3" class="panel-collapse collapse in">
+                        <!-- Panel body -->
+
+                        <div class="panel-body">
+                            <table class="table">
+
+                                <ul>
+                                    <label class="radio">
+                                        <input type="radio" value="" data-toggle="checkbox" name="pic">
+                                        <i class="icon-ok"></i> 1
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" value="" data-toggle="checkbox" name="pic">
+                                        <i class="icon-ok"></i> 2
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" checked value="" data-toggle="checkbox" name="pic">
+                                        <i class="icon-ok"></i> 3
+                                    </label><label class="radio">
+                                        <input type="radio" value="" data-toggle="checkbox" name="pic">
+                                        <i class="icon-ok"></i> 4
+                                    </label>
+                                    </label><label class="radio">
+                                        <input type="radio" value="" data-toggle="checkbox" name="pic">
+                                        <i class="icon-ok"></i> 5
+                                    </label>
+
+                                </ul>
+                            </table>
                         </div>
                     </div>
 
@@ -284,9 +401,9 @@
             </div>
             <div class="col-md-4">
                 <div class="block-heading-two">
-                    <h3><span>图像上传</span></h3>
+                    <h3><span>上传的图片</span></h3>
                 </div>
-                <p>
+                <!-- <p>
                     解释说明
                 </p>
                 <div class="testimonials">
@@ -299,23 +416,29 @@
 
                         </div>
 
-                        <!-- <blockquote>
-                            <p>Lorem ipsum dolor met consectetur adipisicing. Aorem psum dolor met consectetur
-                                adipisicing sit amet, consectetur adipisicing elit, of them jean shorts sed
-                                magna aliqua. Lorem ipsum dolor met.</p>
-                        </blockquote>
-                        <div class="carousel-info">
-                            
-                            <div class="pull-left">
-                                <span class="testimonials-name">Marc Cooper</span>
-                                <span class="testimonials-post">Technical Director</span>
-                            </div>
-                        </div> -->
+                        
+                    </div>
+                </div> -->
+                <img src="{{ buildStaticUrl('/musicGen/music/img/1.jpg') }}" style="width: 300px; height: auto;" alt="">
+            </div>
+
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-8">
+                        <a href="{{ buildUrl('/musicGen/musicplay') }}" class="btn btn-primary"
+                            style="margin-top: 30px; margin-left: 500px;">提交上传</a>
+
                     </div>
                 </div>
             </div>
 
+
         </div>
+
+
+
 
 
 

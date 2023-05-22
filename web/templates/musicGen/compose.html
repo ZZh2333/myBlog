@@ -44,10 +44,10 @@
             <div class="col-lg-8">
                 <h2 class="pageTitle">模型参数选择</h2>
             </div>
-            <div class="col-lg-4">
+            <!-- <div class="col-lg-4">
                 <a href="{{ buildUrl('/musicGen/music') }}" class="btn btn-primary" style="margin-top: 30px; margin-left: 230px;">生成音乐</a>
 
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
@@ -141,7 +141,8 @@
                                             <i class="icon-ok"></i> 10个
                                         </label>
                                         <label class="radio">
-                                            <input type="radio" checked value="" data-toggle="checkbox" name="deepPoint">
+                                            <input type="radio" checked value="" data-toggle="checkbox"
+                                                name="deepPoint">
                                             <i class="icon-ok"></i> 20个（论文推荐）
                                         </label>
                                         <label class="radio">
@@ -164,8 +165,9 @@
                     <h3><span>动机音乐生成参数选择</span></h3>
                 </div>
                 <p>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;动机音乐生成
-                    图像动机模型采用BP神经网络模型架构，根据不同的BP网络结构会产生不同效果的音乐动机，论文推荐模型结构为1层隐含层、每层隐含层20个节点。
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;动机音乐生成采用Transformer网络结构，并引入了何凯明在《Masked Autoencoders Are Scalable
+                    Vision Learners》中使用的Mask机制。
+                    不同的Mask掩蔽会产生不同的音乐旋律，论文推荐对输入的重复动机进行50%的随机掩蔽。
                 </p>
                 <!-- Accordion starts -->
                 <div class="panel-group" id="accordion-alt3">
@@ -218,15 +220,16 @@
                     <h3><span>图像上传</span></h3>
                 </div>
                 <p>
-                    解释说明
+                    请先选择所要使用的参数，选择后上传您要使用的图像文件，上传成功后自动生成音乐。
                 </p>
                 <div class="testimonials">
                     <div class="active item">
                         <div id="upload">
-                            <p style="margin-top: 80px;">将图片拖到此区域或者点击按钮上传</p>
-                            <label for="file-upload">选择文件</label>
-                            <input id="file-upload" type="file" accept="image/*" onchange="loadFile(event)">
-                            
+                            <!-- <form action="http://127.0.0.1:5005/musicGen/upload" enctype='multipart/form-data' method='POST'> -->
+                                <p style="margin-top: 80px;">将图片拖到此区域或者点击按钮上传</p>
+                                <label for="file-upload">选择文件</label>
+                                <input id="file-upload" type="file" accept="image/*" onchange="loadFile(event)">
+                            <!-- </form> -->
 
                         </div>
 
@@ -264,6 +267,33 @@
         var image = document.createElement('img');
         image.src = URL.createObjectURL(event.target.files[0]);
         document.body.appendChild(image);
+
+        console.log(image);
+
+        var temp = document.getElementById('file-upload');
+        let formdata = new FormData();
+        formdata.append('img', temp.files[0]);
+        console.log(temp.files[0]);
+
+        $.ajax({
+            url: '/musicGen/upload',
+            type: "POST",
+            data: formdata,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+
+            success: function (ret) {
+                // $("#result").text(ret)
+                console.log("1112")
+                window.location.href = '/musicGen/music';
+            }
+
+        });
+
     }
+
+
+    
 </script>
 {% endblock %}

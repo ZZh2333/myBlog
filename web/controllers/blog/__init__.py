@@ -5,6 +5,7 @@ route_blog = Blueprint('blog_page',__name__)
 
 from web.controllers.blog.steamcmdinstall import *
 from web.controllers.blog.maoxiandao import *
+from web.controllers.blog.mysql import *
 
 @route_blog.route('/',methods=["Get","POST"])
 def index():

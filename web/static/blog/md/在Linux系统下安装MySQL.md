@@ -22,7 +22,7 @@ sudo apt install mysql-server -y
 sudo service mysql start
 ```
 
-有时会出现以下警告
+有时会出现以下警告  
 ![20230810141901](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20230810141901.png)
 
 处理方法
@@ -47,7 +47,7 @@ sudo mysql_secure_installation
 mysql -u root -p
 ```
 
-按提示输入步骤二设置的密码即可登录，如果提示如下错误，
+按提示输入步骤二设置的密码即可登录，如果提示如下错误，  
 
 ![20230810142521](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20230810142521.png)
 
@@ -91,6 +91,7 @@ mysql -u root -p
 > flush privileges;
 >
 > ```
+>
 > ![20230810144228](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20230810144228.png)
 >
 > 6、设置新密码
@@ -148,6 +149,6 @@ sudo service mysql start
 
 # 参考文献
 
-[Ubuntu(20.04)安装mysql8.0——知乎](https://zhuanlan.zhihu.com/p/525510043)
-[MySQL远程连接失败总结|Ubuntu——CSDN](https://blog.csdn.net/Pluton_1/article/details/128107753)
+[Ubuntu(20.04)安装mysql8.0——知乎](https://zhuanlan.zhihu.com/p/525510043)  
+[MySQL远程连接失败总结|Ubuntu——CSDN](https://blog.csdn.net/Pluton_1/article/details/128107753)  
 [Linux 安装Mysql（图文教程）](https://zhuanlan.zhihu.com/p/404076008)

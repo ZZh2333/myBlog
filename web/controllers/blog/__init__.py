@@ -11,6 +11,7 @@ from web.controllers.blog.mysql import *
 def index():
     data = pd.read_csv('web/static/blog/csv/flod.csv')
     data['Date'] = pd.to_datetime(data['Date'])
+    data['Year'] = data.Date.apply(lambda x: x.year)
     data['Month'] = data.Date.apply(lambda x: x.month)
     data['Day'] = data.Date.apply(lambda x: x.day)
     data = data.sort_values(by='Date',ascending=False)

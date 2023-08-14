@@ -36,7 +36,7 @@
     // 获取markdown文档的URL
     const markdownUrl = "{{ buildStaticUrl('/blog/md/Shell和Bash学习.md')}}";
 
-    // 使用Ajax获取markdown文档内容
+    // 使用Ajax获取markdown文档内容 
     const xhr = new XMLHttpRequest();
     xhr.open('GET', markdownUrl);
     xhr.onreadystatechange = function () {

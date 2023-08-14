@@ -31,7 +31,7 @@
                 <div class="blog-item">
                     <div class="blog-post">
                         <div class="post-media">
-                            <a href="{{ buildUrl('/blog/')}}{{r[1]}}">
+                            <a href="{{ buildUrl('/blog/?wanted=')}}{{r.URL}}">
                                 <img src="{{ buildStaticUrl('/blog/img/')}}{{r.Img}}" alt="blog post with image"
                                     class="img-responsive" />
                             </a>
@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="meta-container">
-                                    <a href="{{ buildUrl('/blog/') }}{{r[1]}}">
+                                    <a href="{{ buildUrl('/blog/?wanted=') }}{{r.URL}}">
                                         <h3>{{r.Name}}</h3>
                                     </a>
                                     <ul class="meta">
@@ -71,7 +71,7 @@
                             </p> -->
 
                             <div class="text-right">
-                                <a href="{{ buildUrl('/blog/') }}{{r[1]}}" class="read-more text-uppercase">查看 <i
+                                <a href="{{ buildUrl('/blog/?wanted=') }}{{r.URL}}" class="read-more text-uppercase">查看 <i
                                         class="ion-arrow-right-c"></i></a>
                             </div>
                         </article>

@@ -165,6 +165,18 @@ echo ${char}|awk '{print length($0)}'
 
 ![20230814170408](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20230814170408.png)
 
+# 5、条件测试
+
+1. test<测试表达式>
+2. [测试表达式]|
+3. [[测试表达式]]
+4. ((测试表达式))
+
+> + 语法1中的test命令和语法2中的[]是等价的。
+> + 语法3中的[[]]为扩展的test命令，可以使用通配符等进行模式匹配。
+> + &&、||、>、<等操作
+> + 语法4中的(())常用于计算。
+
 # 参考文献
 
 [CentOS添加用户](https://www.python100.com/html/83367.html)  

@@ -177,6 +177,52 @@ echo ${char}|awk '{print length($0)}'
 > + &&、||、>、<等操作
 > + 语法4中的(())常用于计算。
 
+# 附实战案例
+
+## 1.批量生成随机字符文件名
+
+&nbsp;&nbsp;&nbsp;&nbsp;使用for循环在zzh/目录下批量创建10个html文件，其中每个文件需要包含10个随机小写字母加固定字符串zzh。
+
+```bash
+#!/bin/bash
+#定义生成文件路径
+MYTMPPATH=zzh
+#如果不存在该路径则创建该目录
+[[ -d "$MYTMPPATH" ]]||mkdir -p $MYTMPPATH
+#for循环10次，每次创建一个html
+for i in `seq 10`
+do
+        #使用openssl命令生成40位随机数
+        #利用sed替换掉非小写字母
+        #利用cut取10位字符
+        random=$(openssl rand -base64 40|sed 's#[^a-z]##g'|cut -c 2-11)
+        #创建题目所需文件
+        touch $MYTMPPATH/${random}_zzh.html
+done
+echo "Done!"
+```
+
+## 2.批量改名
+
+&nbsp;&nbsp;&nbsp;&nbsp;将上一题目中的zzh字符串和扩展名html改成大写字母。
+
+```bash
+#!/bin/bash
+#定义目标目录
+TPath=zzh
+#进入目录，如果失败则推出
+cd $TPath || exit 1
+#便利目录中的文件
+for file in `ls`
+do
+        #获取无需修改的文件名部分
+        name=$(echo ${file}|awk -F '_' '{print $1}')
+        #按题目修改文件名
+        mv ${name}_zzh.html ${name}_ZZH.HTML
+done
+echo "Done!"
+```
+
 # 参考文献
 
 [CentOS添加用户](https://www.python100.com/html/83367.html)  

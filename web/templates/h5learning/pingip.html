@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>网络连通性测试</title>
+</head>
+
+<body>
+    <h1>网络连通性测试</h1>
+    <textarea id="inputIPs" placeholder="输入IP地址或域名，每行一个"></textarea>
+    <button id="testButton">测试</button>
+    <div id="result"></div>
+
+    <script src="script.js"></script>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const testButton = document.getElementById("testButton");
+        const inputIPs = document.getElementById("inputIPs");
+        const resultDiv = document.getElementById("result");
+
+        testButton.addEventListener("click", function () {
+            const ips = inputIPs.value.split('\n').map(ip => ip.trim());
+
+            // 清空结果区域
+            resultDiv.innerHTML = "";
+
+            // 迭代每个IP地址或域名并进行网络测试
+            ips.forEach(ip => {
+                const pingResult = testNetworkConnectivity(ip);
+                const resultMessage = `<p>${ip}: ${pingResult}</p>`;
+                resultDiv.innerHTML += resultMessage;
+            });
+        });
+
+        function testNetworkConnectivity(ip) {
+            // 在此编写用于测试网络连通性的后端Python代码
+            // 这里仅做示例，假设调用一个名为test_network_connectivity的函数
+            // 后端Python代码需要处理Ping测试等网络操作
+            // 这里只是模拟，不包含实际网络测试功能
+            // 实际中，您可以使用Python的ping库或其他网络测试工具
+
+            // 模拟网络测试结果
+            const randomResult = Math.random() < 0.5 ? "连通" : "不连通";
+            return randomResult;
+        }
+    });
+</script>
+
+</html>

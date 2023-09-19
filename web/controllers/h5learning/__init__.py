@@ -13,6 +13,8 @@ from web.controllers.h5learning.simplecard import *
 from web.controllers.h5learning.travelpage import *
 from web.controllers.h5learning.markdown import *
 
+from web.controllers.h5learning.pingip import *
+
 @route_h5learning.route('/')
 def index():
     return render_template("h5learning/index.html")

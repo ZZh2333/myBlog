@@ -280,6 +280,30 @@ minute   hour   day   month   week   command
 `59 1 1-7 4 * test 'date +\%w' -eq 0 && /root/a.sh `
 ```
 
+
+# 7、ssh配置免密登录（A服务器免密登录B服务器）
+
+## 7.1、生成密钥对
+
+```shell
+ssh-keygen -t rsa
+```
+在询问“Enter file in which to save the key (/home/ubuntu/.ssh/id_rsa):”时可以填写需要生成密钥对的名称，以便区分不同的密钥对对应不同登录的服务器。
+
+![20230920150529](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20230920150529.png)
+
+![20230920150649](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20230920150649.png)
+
+## 7.2、将服务器A上的公钥复制到服务器B上的authorized_keys文件。可以使用ssh-copy-id 命令来完成此操作
+
+该步需要输入一次B服务器的登陆密码
+
+```shell
+ssh-copy-id -i id_rsa.pub user_B@server_B
+```
+
+[ssh免密配置失败原因排查](https://blog.csdn.net/zhangmingcai/article/details/95734889)
+
 # 参考文献
 
 [Crontab命令详解](https://blog.csdn.net/qq_32923745/article/details/78286385)

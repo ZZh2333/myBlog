@@ -1,45 +1,147 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>My Blog</title>
-  <!-- 引入highlight.js的CSS和JavaScript文件 -->
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
-  <!-- 引入marked.js文件 -->
-  <script src="//cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <title>Markdown Viewer</title>
+  <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
   <style>
-    /* 自定义样式 */
-    pre {
-      background-color: #f8f8f8;
-      border: 1px solid #ccc;
-      padding: 10px;
-      overflow: auto;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
     }
-    img {
-      max-width: 100%;
+
+    #markdown-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 300px;
+      /* 增加宽度 */
+      height: 100%;
+      overflow-y: auto;
+      background-color: #f4f4f4;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+      font-size: 14px;
+      /* 缩小字体大小 */
+    }
+
+    #markdown-sidebar::-webkit-scrollbar {
+      width: 0;
+      /* 取消滚动条 */
+    }
+
+    #markdown-sidebar ul {
+      list-style-type: none;
+      /* 移除列表标记 */
+      padding-left: 0;
+      /* 移除默认左侧缩进 */
+    }
+
+    #markdown-sidebar li {
+      margin: 5px 0;
+      /* 略微缩小行间距 */
+    }
+
+    #markdown-sidebar a {
+      text-decoration: none;
+      /* 取消下划线 */
+      color: #000;
+      /* 设置字体颜色为黑色 */
+    }
+
+    #markdown-sidebar ul ul {
+      margin-left: 20px;
+      /* 创建树状结构效果 */
+    }
+
+    #markdown-content {
+      margin-left: 320px;
+      /* 侧边栏宽度加上一些间距 */
+      max-width: 800px;
+      padding: 20px;
+    }
+
+    pre code {
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+      border-left: 3px solid #2d2d2d;
+      padding: 10px;
+      margin: 10px 0;
+      overflow-x: auto;
+      display: block;
+      position: relative;
+    }
+
+    pre code.highlight {
+      display: block;
+    }
+
+    /* 更新表格样式 */
+    table {
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th,
+    td {
+      padding: 10px;
     }
   </style>
 </head>
+
 <body>
-  <div id="content"></div>
+  <div id="markdown-sidebar">
+    <!-- 目录将在此处显示 -->
+  </div>
+  <div id="markdown-content">
+    <!-- Markdown内容将在此处显示 -->
+  </div>
+  <script src="https://js.cybozu.cn/markedjs/v0.3.5/marked.min.js"></script>
+
+
+  <!-- <script src="https://js.cybozu.cn/markedjs/v0.3.5/marked.min.js"></script> -->
+  <!-- <script src="script.js"></script> -->
   <script>
-    // 获取markdown文件的路径
-    const mdPath = '../../static/blog/md/在Linux系统下安装SteamCMD.md';
+    document.addEventListener("DOMContentLoaded", function () {
+      const markdownContent = document.getElementById("markdown-content");
+      const markdownSidebar = document.getElementById("markdown-sidebar");
 
-    // 使用fetch获取markdown文件的内容
-    fetch(mdPath)
-      .then(res => res.text())
-      .then(md => {
-        // 将markdown转换成HTML并插入页面中
-        const content = document.querySelector('#content');
-        content.innerHTML = marked.parse(md);
+      // 从服务器路径获取Markdown文件
+      fetch("{{ buildStaticUrl('/blog/md/Linux基础.md')}}")
+        .then(response => response.text())
+        .then(markdownText => {
+          // 使用marked库将Markdown渲染为HTML
+          const htmlContent = marked(markdownText);
 
-        // 对代码进行高亮显示
-        document.querySelectorAll('pre code').forEach(block => {
-          hljs.highlightBlock(block);
+          // 在页面中显示渲染后的HTML内容
+          markdownContent.innerHTML = htmlContent;
+
+          // 解析Markdown内容，提取标题和生成目录
+          const headings = markdownContent.querySelectorAll("h1, h2, h3, h4, h5, h6");
+          headings.forEach(heading => {
+            // 创建目录项
+            const listItem = document.createElement("li");
+            const link = document.createElement("a");
+            link.textContent = heading.textContent;
+            link.href = "#" + heading.id; // 使用标题的ID作为锚点链接
+            listItem.appendChild(link);
+
+            // 将目录项添加到侧边目录栏
+            markdownSidebar.appendChild(listItem);
+          });
+        })
+        .catch(error => {
+          console.error("Error fetching Markdown file:", error);
         });
-      });
+    });
   </script>
 </body>
+
 </html>

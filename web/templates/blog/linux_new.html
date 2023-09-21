@@ -1,0 +1,201 @@
+{% extends "blog/layout_blog.html" %}
+
+{% block css %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    #markdown-container {
+        display: flex;
+    }
+
+    #markdown-content {
+        flex-grow: 1;
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    /* 更新样式以使markdown-sidebar悬浮 */
+    #markdown-sidebar {
+        width: 250px;
+        background-color: #f4f4f4;
+        padding: 20px;
+        overflow-y: auto;
+        border-left: 1px solid #ddd;
+        position: sticky;
+        top: 20px;
+        /* 距离顶部的距离，根据需要调整 */
+    }
+
+    /* 当滚动超过一定距离时，使markdown-sidebar停止悬浮 */
+    @media (min-width: 768px) {
+        #markdown-sidebar {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 20px;
+            /* 距离顶部的距离，根据需要调整 */
+        }
+    }
+
+
+
+    /* 更新表格样式 */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid #ddd;
+    }
+
+    th,
+    td {
+        padding: 10px;
+    }
+
+    /* 大纲样式 */
+    #markdown-outline {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #markdown-outline li {
+        margin: 10px 0;
+        cursor: pointer;
+    }
+
+    /* 限制Markdown文档中图像的最大宽度 */
+    #markdown-content img {
+        max-width: 85%;
+        /* 图像的最大宽度为父元素宽度的百分比，这里设置为100%表示不超过父元素宽度 */
+        height: auto;
+        /* 保持图像的纵横比 */
+        display: block;
+        margin: 0 auto;
+        /* 图片水平居中 */
+    }
+
+    /* 链接高亮显示 */
+    #markdown-content a {
+        color: #0078d4;
+        /* 修改链接的文本颜色为高亮颜色，可以根据需要调整 */
+        text-decoration: underline;
+        /* 添加下划线效果以突出显示链接 */
+        font-weight: bold;
+        /* 可选：增加粗体以进一步突出显示链接 */
+    }
+
+    #markdown-content a:hover {
+        color: #0056b3;
+        /* 鼠标悬停时修改链接文本颜色，可以根据需要调整 */
+    }
+
+
+
+
+    /* 添加更多样式以美化页面 */
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<!-- 背景栏 -->
+<section class="home bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="home-wrapper">
+
+
+                    <h1 class="animated fadeInDown wow" data-wow-delay=".1s">Linux基础</h1>
+                    <!-- <h4 class="page-sub-title animated fadeInDown wow" data-wow-delay=".3s">From our Blog</h4> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /背景栏 -->
+
+
+<!-- <div id="markdown-sidebar">
+    <h2>大纲</h2>
+    <ul id="markdown-outline">
+    </ul>
+</div> -->
+<div class="markdown-container">
+
+
+   
+
+    <div id="markdown-content">
+
+        <!-- Markdown内容将在此处显示 -->
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="https://js.cybozu.cn/markedjs/v0.3.5/marked.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const markdownContainer = document.getElementById("markdown-container");
+        const markdownSidebar = document.getElementById("markdown-sidebar");
+        const markdownContent = document.getElementById("markdown-content");
+        const markdownOutline = document.getElementById("markdown-outline");
+
+        // 替换下面的URL为您的Markdown文件路径
+        const markdownFileURL = "{{ buildStaticUrl('/blog/md/Linux基础.md')}}";
+
+        // 使用Fetch API加载Markdown文件
+        fetch(markdownFileURL)
+            .then(response => response.text())
+            .then(markdownText => {
+                // 使用marked.js将Markdown文本转换为HTML并显示在内容区域
+                markdownContent.innerHTML = marked(markdownText);
+
+                // 生成侧边导航栏
+                generateSidebar(markdownText);
+            })
+
+
+        // 生成侧边导航栏
+        function generateSidebar(markdownText) {
+            // 此处您可以解析Markdown文本以生成导航
+            const headings = markdownText.match(/(^|\n)#+\s.+/g);
+
+            if (headings) {
+                markdownOutline.innerHTML = headings.map(heading => {
+                    const level = heading.match(/#/g).length;
+                    const text = heading.replace(/#+\s/, "");
+                    return `<li style="margin-left: ${level - 1}0px;" data-level="${level}">${text}</li>`;
+                }).join("");
+
+                // 添加点击事件监听器，以便在点击大纲项时滚动到相应的位置
+                markdownOutline.querySelectorAll("li").forEach(item => {
+                    item.addEventListener("click", () => {
+                        const level = item.getAttribute("data-level");
+                        const correspondingHeading = markdownContent.querySelector(`h${level}`);
+                        if (correspondingHeading) {
+                            correspondingHeading.scrollIntoView({
+                                behavior: "smooth"
+                            });
+                        }
+                    });
+                });
+            }
+        }
+    });
+</script>
+{% endblock %}

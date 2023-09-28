@@ -235,17 +235,17 @@ minute   hour   day   month   week   command
 
 |格式|说明|
 |--|--|
-|*/1 * * * * service httpd restart|每一分钟 重启httpd服务|
-|0 */1 * * * service httpd restart|每一小时 重启httpd服务|
-|30 21 * * * service httpd restart|每天 21：30 分 重启httpd服务|
-|26 4 1,5,23,28 * * service httpd restart|每月的1号，5号 23 号 28 号 的4点26分，重启httpd服务|
-|26 4 1-21 * * service httpd restart|每月的1号到21号 的4点26分，重启httpd服务|
-|*/2 * * * * service httpd restart|每隔两分钟 执行，偶数分钟 重启httpd服务|
-|1-59/2 * * * * service httpd restart|每隔两分钟 执行，奇数 重启httpd服务|
-|0 23-7/1 * * * service httpd restart|每天的晚上11点到早上7点 每隔一个小时 重启httpd服务|
-|0,30 18-23 * * * service httpd restart|每天18点到23点 每隔30分钟 重启httpd服务|
-|0-59/30 18-23 * * * service httpd restart|每天18点到23点 每隔30分钟 重启httpd服务|
-|59 1 1-7 4 * test 'date +\%w' -eq 0 && /root/a.sh|四月的第一个星期日 01:59 分运行脚本 /root/a.sh ，命令中的 test是判断，%w是数字的星期几|
+| \*/1 \* \* \* \* service httpd restart |每一分钟 重启httpd服务|
+| 0 \*/1 \* \* \* service httpd restart |每一小时 重启httpd服务|
+| 30 21 \* \* \* service httpd restart |每天 21：30 分 重启httpd服务|
+| 26 4 1,5,23,28 \* \* service httpd restart |每月的1号，5号 23 号 28 号 的4点26分，重启httpd服务|
+| 26 4 1-21 \* \* service httpd restart |每月的1号到21号 的4点26分，重启httpd服务|
+| \*/2 \* \* \* \* service httpd restart |每隔两分钟 执行，偶数分钟 重启httpd服务|
+| 1-59/2 \* \* \* \* service httpd restart |每隔两分钟 执行，奇数 重启httpd服务|
+| 0 23-7/1 \* \* \* service httpd restart |每天的晚上11点到早上7点 每隔一个小时 重启httpd服务|
+| 0,30 18-23 \* \* \* service httpd restart |每天18点到23点 每隔30分钟 重启httpd服务|
+| 0-59/30 18-23 \* \* \* service httpd restart |每天18点到23点 每隔30分钟 重启httpd服务|
+| 59 1 1-7 4 * test 'date +\%w' -eq 0 && /root/a.sh |四月的第一个星期日 01:59 分运行脚本 /root/a.sh ，命令中的 test是判断，%w是数字的星期几|
 
 ### 6.2.6、小结
 

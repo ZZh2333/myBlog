@@ -19,11 +19,15 @@ def index():
     data = data.sort_values(by='Date',ascending=False)
     # print(data)
     rs = []
-    for index,row in data.iterrows():
+    for index,row in data.iterrows(): 
         rs.append(row)
 
     wanted = request.args.get("wanted", type=str)
     if wanted:
         # print("/blog/{}.html"%str(wanted))
         return render_template("/blog/{}.html".format(wanted),rs = rs)
-    return render_template('blog/index.html',rs = rs)
+    return render_template('blog/index.html',rs = rs)  
+
+@route_blog.route('/test')
+def test():
+    return render_template('blog/layout_blog.html')

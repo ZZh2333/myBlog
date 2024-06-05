@@ -1,0 +1,148 @@
+{% extends "blog/layout_blog.html" %}
+
+{% block css %}
+
+{% endblock %}
+
+
+{% block content %}
+<section class="home bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="home-wrapper">
+
+                    <h1 class="animated fadeInDown wow" data-wow-delay=".1s">灵魂面甲服务器</h1>
+                    <!-- <h4 class="page-sub-title animated fadeInDown wow" data-wow-delay=".3s">From our Blog</h4> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section footer-cta">
+
+    <div class="container">
+        <div class="col-xs-12">
+
+
+            <div class="row animated fadeInDown wow" data-wow-delay=".5s">
+
+                <div class="form-group col-sm-4">
+                    <label for="IP" style="color: grey;">IP地址</label>
+                    <input type="text" value="IP地址" name="IP" id="IP" class="form-control"
+                        onblur="if(this.value == '') this.value='IP地址'"
+                        onfocus="if(this.value == 'IP地址') this.value=''">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="user" style="color: grey;">用户</label>
+                    <input type="text" value="用户" name="user" id="user" class="form-control"
+                        onblur="if(this.value == '') this.value='用户'" onfocus="if(this.value == '用户') this.value=''">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="passwd" style="color: grey;">授权密码</label>
+                    <input type="text" value="授权密码" name="passwd" id="passwd" class="form-control"
+                        onblur="if(this.value == '') this.value='授权密码'"
+                        onfocus="if(this.value == '授权密码') this.value=''">
+                </div>
+
+                <!-- <div class="form-group col-sm-4">
+                    <label for="name2" style="color:grey;">Name</label>
+                    <input class="form-control" id="name2" name="name" onblur="if(this.value == '') this.value='Name'"
+                        onfocus="if(this.value == 'Name') this.value=''" type="text" value="Name">
+                    <div class="error" id="err-name" style="display: none;">请输入服务器IP地址</div>
+                </div> -->
+                <!-- /Form-name -->
+
+                <!-- <div class="form-group col-sm-4">
+                    <label for="email2" style="color:grey;">email</label>
+                    <input class="form-control" id="email2" name="email" type="text"
+                        onfocus="if(this.value == 'E-mail') this.value='';"
+                        onblur="if(this.value == '') this.value='E-mail';" value="E-mail">
+                    <div class="error" id="err-emailvld" style="display: none;">E-mail is not a valid format</div>
+                </div> -->
+                <!-- /Form-email -->
+
+                <!-- <div class="form-group col-sm-4">
+                    <label for="subject1" style="color:grey;">subject</label>
+                    <input class="form-control" id="subject1" name="Subject"
+                        onblur="if(this.value == '') this.value='Subject'"
+                        onfocus="if(this.value == 'Subject') this.value=''" type="text" value="Subject">
+                    <div class="error" id="err-subject" style="display: none;">请输入服务器密码</div>
+                </div> -->
+                <!-- /Form-Subject -->
+            </div>
+            <!-- /row -->
+
+            <!-- <div class="row animated fadeInDown wow" data-wow-delay=".7s">
+                <div class="form-group col-xs-12">
+                    <label for="message2">Message</label>
+                    <textarea class="form-control" id="message2" name="message" rows="5"
+                        onblur="if(this.value == '') this.value='Message'"
+                        onfocus="if(this.value == 'Message') this.value=''">Message</textarea>
+                    <div class="error" id="err-message" style="display: none;">Please enter message</div>
+                </div>
+            </div>  -->
+
+            <!-- <div class="row animated fadeInDown wow" data-wow-delay=".7s">
+                <div class="col-md-8 col-md-offset-2">
+                    <p class="text-center con_sub_text" style="color:grey;">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At
+                        accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et
+                        invidunt justo labore Stet clita ea et gubergren.</p>
+                </div> 
+            </div>  -->
+
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <div id="ajaxsuccess">E-mail was successfully sent.</div>
+                    <div class="error" id="err-form" style="display: none;">There was a problem validating the form
+                        please check!</div>
+                    <div class="error" id="err-timedout">The connection to the server timed out!</div>
+                    <div class="error" id="err-state"></div>
+                    <button type="submit" class="btn btn-custom" id="submitButton">更新并重启服务器</button>
+                </div>
+            </div>
+
+            <!-- <div class="row text-center">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <a href="{{ buildUrl('/gameTool/soulMask') }}?action=restart"
+                        class="btn btn-custom btn-rnd animated fadeInDown wow" data-wow-delay=".5s">更新并重启服务器</a>
+                </div>
+            </div> -->
+        </div>
+</section>
+
+
+<!-- <button id="runButton">运行Python方法</button> -->
+{% endblock %}
+
+
+{% block js %}
+
+<script>
+    $(document).ready(function(){
+        $('#submitButton').click(function(){
+            var inputData = {
+                IP: $('#IP').val(),
+                user: $('#user').val(),
+                passwd: $('#passwd').val()
+            };
+
+            $.ajax({
+                url: "{{ buildUrl('/gameTool/soulMask') }}",
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(inputData),
+                success: function(response) {
+                    alert('Success: ' + response.message);
+                },
+                error: function(error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

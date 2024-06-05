@@ -105,6 +105,7 @@ jQuery(function ($) {
         $errorForm: $("#err-form"),
         $errorTimeout: $("#err-timedout"),
         $errorState: $("#err-state"),
+        $errorSubject: $("#err-subject"),
 
         //Validate Contact Us Data
         validate: function () {

@@ -49,12 +49,12 @@
             <!-- end navbar-header -->
 
             <!-- menu -->
-            <!-- <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#features">Features</a>
-                    </li>
-                    <li>
+                    <!-- <li>
+                        <a href="#features">工具</a>
+                    </li> -->
+                    <!-- <li>
                         <a href="#services">Services</a>
                     </li>
                     <li>
@@ -62,27 +62,60 @@
                     </li>
                     <li>
                         <a href="#pricing">Pricing</a>
-                    </li>
+                    </li> -->
+
+
                     <li class="dropdown">
-                        <a href="#" data-toggle="dropdown">
-                            Pages
+                        <a href="#" data-toggle="dropdown" class="logo">
+                            页面展示
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu arrow">
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a target="_blank" href="{{ buildUrl('/h5learning/picslider') }}">页面滑块</a></li>
+                            <li><a target="_blank" href="{{ buildUrl('/h5learning/rotationmenu') }}">旋转菜单</a></li>
+                            <li><a target="_blank" href="{{ buildUrl('/h5learning/bottomfish') }}">底部养鱼</a></li>
+                            <li><a target="_blank" href="{{ buildUrl('/h5learning/rotationUI') }}">旋转UI</a></li>
+                            <li><a target="_blank" href="{{ buildUrl('/h5learning/themeslider') }}">风格切换</a></li>
+                            <li><a target="_blank" href="{{ buildUrl('/h5learning/simplecard') }}">简单卡片</a></li>
+                            <li><a target="_blank" href="{{ buildUrl('/h5learning/travelpage') }}">页面跳转</a></li>
+                            <li><a target="_blank" href="{{ buildUrl('/h5learning/flashUI') }}">动画UI</a></li>
+                            <li><a target="_blank" href="{{ buildUrl('/h5learning/morningandnight') }}">晨昏切换</a></li>
+                        </ul>
+                        
+                        
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="logo">
+                            小游戏
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu arrow">
+                            <li><a target="_blank" href="{{ buildUrl('/h5game/pingpong') }}">乒乓球</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="logo">
+                            工具
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu arrow">
+                            <li><a href="{{ buildUrl('/gameTool') }}">游戏服务器工具</a></li>
+                            <!-- <li><a href="contact.html">Contact</a></li>
                             <li><a href="faq.html">Faq</a></li>
                             <li><a href="blog.html">Blog</a></li>
-                            <li><a href="blog-post.html">Blog-Post</a></li>
+                            <li><a href="blog-post.html">Blog-Post</a></li> -->
                         </ul>
                     </li>
                 </ul>
-            </div> -->
+            </div>
             <!--/Menu -->
         </div>
         <!-- end container -->
     </div>
     <!-- /导航栏 -->
+
 
 
     {% block content %}
@@ -154,7 +187,7 @@
                 <div class="col-sm-12">
                     <div class="footer-alt">
                         <p class="pull-right">2023 © 清涵</p>
-                        <p class="logo"><i class="ion-social-buffer"></i>Lugada</p>
+                        <!-- <p class="logo"><i class="ion-social-buffer"></i>Lugada</p> -->
                     </div>
                 </div>
             </div>
@@ -168,7 +201,7 @@
 
 
 
-    {% block js %}
+    
 
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="{{ buildStaticUrl('/blog/js/jquery.js') }}"></script>
@@ -246,7 +279,7 @@
         })(jQuery);
     </script>
 
-
+    {% block js %}
     {% endblock %}
 
 </body>

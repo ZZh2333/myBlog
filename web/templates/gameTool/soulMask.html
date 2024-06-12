@@ -37,8 +37,8 @@
                 </div>
                 <div class="form-group col-sm-4">
                     <label for="user" style="color: grey;">用户</label>
-                    <input type="text" value="用户" name="user" id="user" class="form-control"
-                        onblur="if(this.value == '') this.value='用户'" onfocus="if(this.value == '用户') this.value=''">
+                    <input type="text" value="Administrator" name="user" id="user" class="form-control"
+                        onblur="if(this.value == '') this.value='Administrator'" onfocus="if(this.value == 'Administrator') this.value=''">
                 </div>
                 <div class="form-group col-sm-4">
                     <label for="passwd" style="color: grey;">授权密码</label>
@@ -126,7 +126,8 @@
             var inputData = {
                 IP: $('#IP').val(),
                 user: $('#user').val(),
-                passwd: $('#passwd').val()
+                passwd: $('#passwd').val(),
+                currentDate: new Date()
             };
 
             $.ajax({

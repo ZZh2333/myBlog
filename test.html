@@ -1,0 +1,909 @@
+{% extends "base.html" %}
+
+{% block title %}合同详情 - 合同管理系统{% endblock %}
+
+{% block css %}
+<style>
+    .contract-header {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .file-card {
+        border-left: 4px solid #0d6efd;
+        transition: transform 0.2s;
+    }
+
+    .file-card:hover {
+        transform: translateX(5px);
+    }
+
+    .timeline {
+        position: relative;
+        padding-left: 40px;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background: #dee2e6;
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .timeline-icon {
+        position: absolute;
+        left: -33px;
+        top: 4px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #0d6efd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    /* 在原有CSS中添加 */
+    .timeline-icon.fa-sync-alt {
+        background: #17a2b8;
+    }
+
+    .timeline-icon.fa-comment-dots {
+        background: #6c757d;
+    }
+
+    .alert-info {
+        border-left: 3px solid #17a2b8;
+    }
+
+    /* 新增编辑表单样式 */
+    #editView .form-label {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    #editView .select2-container {
+        width: 100% !important;
+    }
+</style>
+<link href="{{buildStaticUrl('css/select2.min.css')}}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="contract-header shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">{{ contract.title }}</h1>
+            <div class="d-flex align-items-center gap-3">
+                <span class="badge bg-primary fs-5">合同编号：{{ contract.contract_id }}</span>
+                <button class="btn btn-primary" id="editButton">
+                    <i class="fas fa-edit me-2"></i>编辑
+                </button>
+            </div>
+        </div>
+
+        <!-- 详情视图 -->
+        <div id="detailView">
+            <div class="row g-4">
+                <!-- 左侧时间线 -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-icon"><i class="fas fa-play"></i></div>
+                                <div class="text-muted small">合同周期</div>
+                                <div class="fw-bold">{{ contract.start_date }} - {{ contract.end_date }}</div>
+                            </div>
+        
+                            <div class="timeline-item">
+                                <div class="timeline-icon"><i class="fas fa-hourglass-start"></i></div>
+                                <div class="text-muted small">当前状态</div>
+                                <div class="badge bg-primary fs-6">{{ contract.status }}</div>
+                            </div>
+        
+                            <!-- 新增继续采购信息 -->
+                            <div class="timeline-item">
+                                <div class="timeline-icon"><i class="fas fa-sync-alt"></i></div>
+                                <div class="text-muted small">继续采购</div>
+                                <div class="d-flex flex-column">
+                                    <span
+                                        class="badge bg-{{ 'success' if contract.project_info.continue_purchase else 'secondary' }} mb-2">
+                                        {{ '计划继续采购' if contract.project_info.continue_purchase else '无后续计划' }}
+                                    </span>
+                                    {% if contract.project_info.continue_purchase and contract.project_info.next_stage_progress %}
+                                    <div class="alert alert-info p-2 mt-2">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        {{ contract.project_info.next_stage_progress }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+        
+                            <div class="timeline-item">
+                                <div class="timeline-icon"><i class="fas fa-file-signature"></i></div>
+                                <div class="text-muted small">立项状态</div>
+                                <div class="d-flex align-items-center gap-2">
+                                    {{ '已立项' if contract.project_info.is_approved else '未立项' }}
+                                    {% if contract.project_info.approve_date %}
+                                    <span class="text-muted small">（{{ contract.project_info.approve_date }}）</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+        
+                            <!-- 新增备注信息 -->
+                            <div class="timeline-item">
+                                <div class="timeline-icon"><i class="fas fa-comment-dots"></i></div>
+                                <div class="text-muted small">项目备注</div>
+                                <div class="border rounded p-2 bg-light">
+                                    {{ contract.project_info.notes if contract.project_info.notes else '暂无备注信息' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- 右侧主要内容 -->
+                <div class="col-md-8">
+                    <!-- 所属系统 -->
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <i class="fas fa-sitemap me-2"></i>关联系统
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>系统名称</th>
+                                            <th>开始日期</th>
+                                            <th>结束日期</th>
+                                            <th>持续时间</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for system in contract.systems %}
+                                        <tr>
+                                            <td class="text-nowrap">{{ system.name }}</td>
+                                            <td>{{ system.start_date }}</td>
+                                            <td>{{ system.end_date }}</td>
+                                            <td>{{ system.duration_days }}天</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+        
+        
+                    <!-- 文件管理 -->
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <i class="fas fa-folder-open me-2"></i>文档附件
+                        </div>
+                        <div class="card-body">
+                            <!-- 合同文件 -->
+                            <div class="card mb-3 file-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="mb-1">
+                                                <i class="fas fa-file-contract text-primary me-2"></i>
+                                                合同文本（{{ contract.files.contract_file|length }}份）
+                                            </h5>
+                                            <small class="text-muted">PDF/Word文档，最大50MB</small>
+                                        </div>
+                                        <!-- 合同文本按钮组 -->
+                                        <div class="btn-group">
+                                            {% if contract.files.contract_file|length == 0 %}
+                                            <button class="btn btn-sm btn-outline-success"
+                                                onclick="handleUploadFile('{{ contract.contract_id }}', 'contract_file')">
+                                                <i class="fas fa-upload"></i>
+                                            </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        {% for file in contract.files.contract_file %}
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div>
+                                                <i class="fas fa-paperclip me-2"></i>
+                                                {{ file.original_name }}
+                                                <small class="text-muted ms-2">
+                                                    {% if file.upload_time %}
+                                                    {{ file.upload_time|datetimeformat }}
+                                                    {% else %}
+                                                    无上传时间
+                                                    {% endif %}
+                                                </small>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="{{ url_for('contract.download_file', path=file.saved_path) }}"
+                                                    class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-download"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-warning"
+                                                    onclick="handleUpdateFile('{{ contract.contract_id }}', 'contract_file', '{{ file.saved_path }}')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-danger"
+                                                    onclick="handleDeleteFile('{{ contract.contract_id }}', '{{ file.saved_path }}')">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- 立项文件 -->
+                            <div class="card mb-3 file-card" style="border-left-color: #28a745;">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="mb-1">
+                                                <i class="fas fa-file-signature text-success me-2"></i>
+                                                立项文件（{{ contract.files.project_file|length }}份）
+                                            </h5>
+                                            <small class="text-muted">包含立项审批书、可行性报告等</small>
+                                        </div>
+                                        <!-- 立项文件按钮组 -->
+                                        <div class="btn-group">
+                                            {% if contract.files.project_file|length == 0 %}
+                                            <button class="btn btn-sm btn-outline-success"
+                                                onclick="handleUploadFile('{{ contract.contract_id }}', 'project_file')">
+                                                <i class="fas fa-upload"></i>
+                                            </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        {% for file in contract.files.project_file %}
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div>
+                                                <i class="fas fa-paperclip me-2"></i>
+                                                {{ file.original_name }}
+                                                <small class="text-muted ms-2">
+                                                    {% if file.upload_time %}
+                                                    {{ file.upload_time|datetimeformat }}
+                                                    {% else %}
+                                                    无上传时间
+                                                    {% endif %}
+                                                </small>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="{{ url_for('contract.download_file', path=file.saved_path) }}"
+                                                    class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-download"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-warning"
+                                                    onclick="handleUpdateFile('{{ contract.contract_id }}', 'project_file', '{{ file.saved_path }}')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-danger"
+                                                    onclick="handleDeleteFile('{{ contract.contract_id }}', '{{ file.saved_path }}')">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- 其他附件 -->
+                            <div class="card file-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="mb-1">
+                                                <i class="fas fa-file-alt text-primary me-2"></i>
+                                                其他附件（{{ contract.files.other_files|length }}份）
+                                            </h5>
+                                            <small class="text-muted">支持多种文件格式</small>
+                                        </div>
+                                        <!-- 其他附件按钮组（始终显示上传按钮） -->
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-outline-success"
+                                                onclick="handleUploadFile('{{ contract.contract_id }}', 'other_files')">
+                                                <i class="fas fa-upload"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        {% for file in contract.files.other_files %}
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div>
+                                                <i class="fas fa-paperclip me-2"></i>
+                                                {{ file.original_name }}
+                                                <small class="text-muted ms-2">
+                                                    {% if file.upload_time %}
+                                                    {{ file.upload_time|datetimeformat }}
+                                                    {% else %}
+                                                    无上传时间
+                                                    {% endif %}
+                                                </small>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="{{ url_for('contract.download_file', path=file.saved_path) }}"
+                                                    class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-download"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-danger"
+                                                    onclick="handleDeleteFile('{{ contract.contract_id }}', '{{ file.saved_path }}')">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 编辑视图 -->
+        <div id="editView" style="display: none;">
+            <form method="POST" action="{{ url_for('contract.update_contract', contract_id=contract.contract_id) }}" class="needs-validation" novalidate>
+                <!-- 基础信息 -->
+                <div class="card mb-4 shadow">
+                    <div class="card-header bg-primary text-white">基础信息</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="contract_id" class="form-label">合同编号</label>
+                                <input type="text" class="form-control" id="contract_id" name="contract_id" 
+                                    value="{{ contract.contract_id }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="vendor" class="form-label">厂商名称</label>
+                                <select class="form-select select2-vendor" id="vendor" name="vendor" required>
+                                    <option value="{{ contract.vendor }}" selected>{{ contract.vendor }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="title" class="form-label">合同标题</label>
+                                <input type="text" class="form-control" id="title" name="title" 
+                                    value="{{ contract.title }}" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 所属系统 -->
+                <div class="card mb-4 shadow">
+                    <div class="card-header bg-primary text-white">所属系统</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="systemsTable">
+                                <thead>
+                                    <tr>
+                                        <th>系统名称</th>
+                                        <th>开始日期</th>
+                                        <th>结束日期</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for system in contract.systems %}
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control system-name" 
+                                                name="systems[{{ loop.index0 }}][name]" 
+                                                value="{{ system.name }}" pattern="^[a-zA-Z-]+$" required>
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control system-start-date" 
+                                                name="systems[{{ loop.index0 }}][start_date]" 
+                                                value="{{ system.start_date }}" required>
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control system-end-date" 
+                                                name="systems[{{ loop.index0 }}][end_date]" 
+                                                value="{{ system.end_date }}" required>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-sm" 
+                                                onclick="removeSystemRow(this)">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-sm mt-2" onclick="addSystemRow()">
+                            <i class="fas fa-plus"></i> 添加系统
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 金额与状态 -->
+                <div class="card mb-4 shadow">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="amount" class="form-label">合同金额（元）</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">¥</span>
+                                    <input type="number" class="form-control" id="amount" name="amount" 
+                                        value="{{ contract.amount }}" step="0.01" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="status" class="form-label">合同状态</label>
+                                <select class="form-select" id="status" name="status" required>
+                                    {% for s in ['未立项','执行中','验收中','已结束'] %}
+                                    <option value="{{ s }}" {% if contract.status==s %}selected{% endif %}>{{ s }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 负责人信息 -->
+                <div class="card mb-4 shadow">
+                    <div class="card-header bg-primary text-white">负责人信息</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="manager_id" class="form-label">负责人EHR号</label>
+                                <input type="text" class="form-control" id="manager_id" name="manager_id" 
+                                    value="{{ contract.manager.id }}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="manager_name" class="form-label">负责人姓名</label>
+                                <input type="text" class="form-control" id="manager_name" name="manager_name" 
+                                    value="{{ contract.manager.name }}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="group" class="form-label">所属小组</label>
+                                <select class="form-select select2-group" id="group" name="group" required>
+                                    <option value="{{ contract.manager.group }}" selected>
+                                        {{ group_id_to_name.get(contract.manager.group, contract.manager.group) }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目信息 -->
+                <div class="card mb-4 shadow">
+                    <div class="card-header bg-primary text-white">项目信息</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="is_approved" name="is_approved" 
+                                        {% if contract.project_info.is_approved %}checked{% endif %}>
+                                    <label class="form-check-label" for="is_approved">已通过立项审批</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="approve_date" class="form-label">立项日期</label>
+                                <input type="date" class="form-control" id="approve_date" name="approve_date" 
+                                    value="{{ contract.project_info.approve_date }}" 
+                                    {% if not contract.project_info.is_approved %}disabled{% endif %}>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-check pt-4">
+                                    <input class="form-check-input" type="checkbox" id="continue_purchase" 
+                                        name="continue_purchase" {% if contract.project_info.continue_purchase %}checked{% endif %}>
+                                    <label class="form-check-label" for="continue_purchase">继续采购下一期</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="nextStageContainer" 
+                                style="display: {% if contract.project_info.continue_purchase %}block{% else %}none{% endif %};">
+                                <label for="next_stage_progress" class="form-label">下一期进展</label>
+                                <input type="text" class="form-control" id="next_stage_progress" name="next_stage_progress" 
+                                    value="{{ contract.project_info.next_stage_progress }}">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="notes" class="form-label">备注</label>
+                                <textarea class="form-control" id="notes" name="notes" rows="2">{{ contract.project_info.notes }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 表单操作 -->
+                <div class="d-flex gap-3 mb-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>保存修改
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancelButton">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- 左侧时间线 -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-icon"><i class="fas fa-play"></i></div>
+                        <div class="text-muted small">合同周期</div>
+                        <div class="fw-bold">{{ contract.start_date }} - {{ contract.end_date }}</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon"><i class="fas fa-hourglass-start"></i></div>
+                        <div class="text-muted small">当前状态</div>
+                        <div class="badge bg-primary fs-6">{{ contract.status }}</div>
+                    </div>
+
+                    <!-- 新增继续采购信息 -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon"><i class="fas fa-sync-alt"></i></div>
+                        <div class="text-muted small">继续采购</div>
+                        <div class="d-flex flex-column">
+                            <span
+                                class="badge bg-{{ 'success' if contract.project_info.continue_purchase else 'secondary' }} mb-2">
+                                {{ '计划继续采购' if contract.project_info.continue_purchase else '无后续计划' }}
+                            </span>
+                            {% if contract.project_info.continue_purchase and contract.project_info.next_stage_progress %}
+                            <div class="alert alert-info p-2 mt-2">
+                                <i class="fas fa-info-circle me-2"></i>
+                                {{ contract.project_info.next_stage_progress }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon"><i class="fas fa-file-signature"></i></div>
+                        <div class="text-muted small">立项状态</div>
+                        <div class="d-flex align-items-center gap-2">
+                            {{ '已立项' if contract.project_info.is_approved else '未立项' }}
+                            {% if contract.project_info.approve_date %}
+                            <span class="text-muted small">（{{ contract.project_info.approve_date }}）</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- 新增备注信息 -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon"><i class="fas fa-comment-dots"></i></div>
+                        <div class="text-muted small">项目备注</div>
+                        <div class="border rounded p-2 bg-light">
+                            {{ contract.project_info.notes if contract.project_info.notes else '暂无备注信息' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧主要内容 -->
+        <div class="col-md-8">
+            <!-- 所属系统 -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-sitemap me-2"></i>关联系统
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>系统名称</th>
+                                    <th>开始日期</th>
+                                    <th>结束日期</th>
+                                    <th>持续时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for system in contract.systems %}
+                                <tr>
+                                    <td class="text-nowrap">{{ system.name }}</td>
+                                    <td>{{ system.start_date }}</td>
+                                    <td>{{ system.end_date }}</td>
+                                    <td>{{ system.duration_days }}天</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 文件管理 -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-folder-open me-2"></i>文档附件
+                </div>
+                <div class="card-body">
+                    <!-- 合同文件 -->
+                    <div class="card mb-3 file-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">
+                                        <i class="fas fa-file-contract text-primary me-2"></i>
+                                        合同文本（{{ contract.files.contract_file|length }}份）
+                                    </h5>
+                                    <small class="text-muted">PDF/Word文档，最大50MB</small>
+                                </div>
+                                <!-- 合同文本按钮组 -->
+                                <div class="btn-group">
+                                    {% if contract.files.contract_file|length == 0 %}
+                                    <button class="btn btn-sm btn-outline-success"
+                                        onclick="handleUploadFile('{{ contract.contract_id }}', 'contract_file')">
+                                        <i class="fas fa-upload"></i>
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                {% for file in contract.files.contract_file %}
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <i class="fas fa-paperclip me-2"></i>
+                                        {{ file.original_name }}
+                                        <small class="text-muted ms-2">
+                                            {% if file.upload_time %}
+                                            {{ file.upload_time|datetimeformat }}
+                                            {% else %}
+                                            无上传时间
+                                            {% endif %}
+                                        </small>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a href="{{ url_for('contract.download_file', path=file.saved_path) }}"
+                                            class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-warning"
+                                            onclick="handleUpdateFile('{{ contract.contract_id }}', 'contract_file', '{{ file.saved_path }}')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger"
+                                            onclick="handleDeleteFile('{{ contract.contract_id }}', '{{ file.saved_path }}')">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 立项文件 -->
+                    <div class="card mb-3 file-card" style="border-left-color: #28a745;">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">
+                                        <i class="fas fa-file-signature text-success me-2"></i>
+                                        立项文件（{{ contract.files.project_file|length }}份）
+                                    </h5>
+                                    <small class="text-muted">包含立项审批书、可行性报告等</small>
+                                </div>
+                                <!-- 立项文件按钮组 -->
+                                <div class="btn-group">
+                                    {% if contract.files.project_file|length == 0 %}
+                                    <button class="btn btn-sm btn-outline-success"
+                                        onclick="handleUploadFile('{{ contract.contract_id }}', 'project_file')">
+                                        <i class="fas fa-upload"></i>
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                {% for file in contract.files.project_file %}
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <i class="fas fa-paperclip me-2"></i>
+                                        {{ file.original_name }}
+                                        <small class="text-muted ms-2">
+                                            {% if file.upload_time %}
+                                            {{ file.upload_time|datetimeformat }}
+                                            {% else %}
+                                            无上传时间
+                                            {% endif %}
+                                        </small>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a href="{{ url_for('contract.download_file', path=file.saved_path) }}"
+                                            class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-warning"
+                                            onclick="handleUpdateFile('{{ contract.contract_id }}', 'project_file', '{{ file.saved_path }}')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger"
+                                            onclick="handleDeleteFile('{{ contract.contract_id }}', '{{ file.saved_path }}')">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 其他附件 -->
+                    <div class="card file-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">
+                                        <i class="fas fa-file-alt text-primary me-2"></i>
+                                        其他附件（{{ contract.files.other_files|length }}份）
+                                    </h5>
+                                    <small class="text-muted">支持多种文件格式</small>
+                                </div>
+                                <!-- 其他附件按钮组（始终显示上传按钮） -->
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-success"
+                                        onclick="handleUploadFile('{{ contract.contract_id }}', 'other_files')">
+                                        <i class="fas fa-upload"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                {% for file in contract.files.other_files %}
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <i class="fas fa-paperclip me-2"></i>
+                                        {{ file.original_name }}
+                                        <small class="text-muted ms-2">
+                                            {% if file.upload_time %}
+                                            {{ file.upload_time|datetimeformat }}
+                                            {% else %}
+                                            无上传时间
+                                            {% endif %}
+                                        </small>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a href="{{ url_for('contract.download_file', path=file.saved_path) }}"
+                                            class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-danger"
+                                            onclick="handleDeleteFile('{{ contract.contract_id }}', '{{ file.saved_path }}')">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{{buildStaticUrl('js/select2.min.js')}}"></script>
+<script>
+    // 编辑视图切换逻辑
+    document.addEventListener('DOMContentLoaded', function() {
+        const editButton = document.getElementById('editButton');
+        const cancelButton = document.getElementById('cancelButton');
+        const detailView = document.getElementById('detailView');
+        const editView = document.getElementById('editView');
+
+        if (editButton) {
+            editButton.addEventListener('click', () => {
+                detailView.style.display = 'none';
+                editView.style.display = 'block';
+                initSelect2();
+            });
+        }
+
+        if (cancelButton) {
+            cancelButton.addEventListener('click', () => {
+                detailView.style.display = 'block';
+                editView.style.display = 'none';
+            });
+        }
+
+        // 初始化Select2
+        function initSelect2() {
+            $('.select2-vendor').select2({
+                placeholder: "搜索厂商...",
+                ajax: {
+                    url: "/contract/api/company",
+                    dataType: 'json',
+                    delay: 300,
+                    processResults: function(data) {
+                        return { results: data.results };
+                    }
+                }
+            }).val("{{ contract.vendor }}").trigger('change');
+
+            $('.select2-group').select2({
+                placeholder: "搜索小组...",
+                ajax: {
+                    url: "/contract/api/group",
+                    dataType: 'json',
+                    delay: 300,
+                    processResults: function(data) {
+                        return { results: data.results };
+                    }
+                }
+            }).val("{{ contract.manager.group }}").trigger('change');
+        }
+
+        // 动态系统行计数
+        let systemRowCount = {{ contract.systems|length }};
+
+        // 表单验证
+        (function() {
+            'use strict';
+            const form = document.querySelector('.needs-validation');
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        })();
+    });
+
+    // 系统表格操作
+    function addSystemRow() {
+        const newRow = `
+            <tr>
+                <td>
+                    <input type="text" class="form-control system-name" 
+                        name="systems[${systemRowCount}][name]" pattern="^[a-zA-Z-]+$" required>
+                    <div class="invalid-feedback">仅允许英文和连字符(-)</div>
+                </td>
+                <td><input type="date" class="form-control system-start-date" 
+                        name="systems[${systemRowCount}][start_date]" required></td>
+                <td><input type="date" class="form-control system-end-date" 
+                        name="systems[${systemRowCount}][end_date]" required></td>
+                <td><button type="button" class="btn btn-danger btn-sm" 
+                        onclick="removeSystemRow(this)"><i class="fas fa-trash"></i></button></td>
+            </tr>`;
+        $('#systemsTable tbody').append(newRow);
+        systemRowCount++;
+    }
+
+    function removeSystemRow(btn) {
+        $(btn).closest('tr').remove();
+    }
+
+    // 交互逻辑
+    document.getElementById('is_approved').addEventListener('change', function() {
+        document.getElementById('approve_date').disabled = !this.checked;
+    });
+
+    document.getElementById('continue_purchase').addEventListener('change', function() {
+        document.getElementById('nextStageContainer').style.display = this.checked ? 'block' : 'none';
+    });
+
+    // 日期验证
+    $(document).on('change', '.system-start-date', function() {
+        const endDate = $(this).closest('tr').find('.system-end-date');
+        endDate.attr('min', this.value);
+    });
+</script>
+{% endblock %}

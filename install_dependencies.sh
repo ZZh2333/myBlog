@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+conda activate myblog
 # 检查是否安装了 Python 和 pip
 if ! command -v python3 &> /dev/null; then
     echo "Python3 未安装，请先安装 Python3。"

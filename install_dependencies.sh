@@ -25,15 +25,7 @@ conda activate myblog
 # fi
 
 # 安装依赖
-if [ -f "requirements.txt" ]; then
-    echo "正在安装依赖..."
-    pip install --ignore-installed --no-deps -r requirements.txt || {
-        echo "部分依赖安装失败，继续执行..."
-    }
-else
-    echo "未找到requirements.txt"
-    exit 1
-fi
+while read requirement; do pip install --no-cache-dir $requirement || continue; done < requirements.txt
 
 echo "依赖安装完成！"
 

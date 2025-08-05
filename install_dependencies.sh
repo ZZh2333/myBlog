@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # 初始化conda环境
-if ! grep -q "conda initialize" ~/.bashrc; then
-    echo "请先运行 'conda init' 初始化环境"
-    exit 1
-fi
+# if ! grep -q "conda initialize" ~/.bashrc; then
+#     echo "请先运行 'conda init' 初始化环境"
+#     exit 1
+# fi
 
 # 加载conda环境
 . ~/.bashrc
@@ -19,10 +19,10 @@ fi
 conda activate myblog
 
 # 检查python（使用conda环境中的python）
-if ! python --version &> /dev/null; then
-    echo "Python未正确安装或conda环境有问题"
-    exit 1
-fi
+# if ! python --version &> /dev/null; then
+#     echo "Python未正确安装或conda环境有问题"
+#     exit 1
+# fi
 
 # 安装依赖
 if [ -f "requirements.txt" ]; then

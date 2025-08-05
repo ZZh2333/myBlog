@@ -1,26 +1,40 @@
 #!/bin/bash
 
-source ~/.bashrc
-conda activate myblog
-# 检查是否安装了 Python 和 pip
-if ! command -v python &> /dev/null; then
-    echo "python 未安装，请先安装 python。"
+# 初始化conda环境
+if ! grep -q "conda initialize" ~/.bashrc; then
+    echo "请先运行 'conda init' 初始化环境"
     exit 1
 fi
 
-if ! command -v pip &> /dev/null; then
-    echo "pip 未安装，正在安装 pip..."
-    sudo apt-get update
-    sudo apt-get install -y python-pip
+# 加载conda环境
+. ~/.bashrc
+
+# 检查conda环境
+if ! conda env list | grep -q "myblog"; then
+    echo "Conda环境'myblog'不存在，请先创建"
+    exit 1
 fi
 
-# 安装依赖并跳过 @ 后目录不存在的报错
+# 激活conda环境
+conda activate myblog
+
+# 检查python（使用conda环境中的python）
+if ! python --version &> /dev/null; then
+    echo "Python未正确安装或conda环境有问题"
+    exit 1
+fi
+
+# 安装依赖
 if [ -f "requirements.txt" ]; then
     echo "正在安装依赖..."
-    pip install --ignore-installed --no-deps -r requirements.txt
+    pip install --ignore-installed --no-deps -r requirements.txt || {
+        echo "部分依赖安装失败，继续执行..."
+    }
 else
-    echo "未找到 requirements.txt 文件，请确保文件存在。"
+    echo "未找到requirements.txt"
     exit 1
 fi
+
+echo "依赖安装完成！"
 
 echo "依赖安装完成！"

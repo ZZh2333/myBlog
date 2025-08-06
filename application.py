@@ -11,11 +11,11 @@ class Application(Flask):
         
         # todo:按环境加载配置文件
         
-        db.__init__(self)
+        # db.__init__(self)
 
 
 
-db = SQLAlchemy()
+# db = SQLAlchemy()
 app = Application(__name__,template_folder=os.getcwd()+'/web/templates',root_path=os.getcwd())
 
 # 处理跨域问题

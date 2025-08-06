@@ -7,16 +7,16 @@
 # fi
 
 # 加载conda环境
-. ~/.bashrc
+# . ~/.bashrc
 
 # 检查conda环境
-if ! conda env list | grep -q "myblog"; then
-    echo "Conda环境'myblog'不存在，请先创建"
-    exit 1
-fi
+# if ! conda env list | grep -q "myblog"; then
+#     echo "Conda环境'myblog'不存在，请先创建"
+#     exit 1
+# fi
 
 # 激活conda环境
-conda activate myblog
+# conda activate myblog
 
 # 检查python（使用conda环境中的python）
 # if ! python --version &> /dev/null; then

@@ -1,0 +1,53 @@
+{% extends "blog/layout_blog.html" %}
+
+{% block css %}
+
+
+{% endblock %}
+
+
+{% block content %}
+<!-- 背景栏 -->
+<section class="home bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="home-wrapper">
+                    <h1 class="animated fadeInDown wow" data-wow-delay=".1s">Docker学习笔记（一）</h1>
+                    <!-- <h4 class="page-sub-title animated fadeInDown wow" data-wow-delay=".3s">From our Blog</h4> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /背景栏 -->
+
+<div class="container">
+    <div id="markdown"></div>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script>
+    // 获取markdown文档的URL
+    const markdownUrl = "{{ buildStaticUrl('/blog/md/Docker学习笔记（一）.md')}}";
+
+    // 使用Ajax获取markdown文档内容
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', markdownUrl);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // 将markdown文档转换为HTML代码
+            const markdownHtml = marked.parse(xhr.responseText);
+
+            // 将HTML代码插入到div元素中
+            document.getElementById('markdown').innerHTML = markdownHtml;
+        }
+    };
+    xhr.send();
+</script>
+{% endblock %}

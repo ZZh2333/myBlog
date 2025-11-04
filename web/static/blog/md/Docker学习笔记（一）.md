@@ -125,3 +125,29 @@ docker history也向我们展示了镜像的分层结构，每一层由上至下
 3. 执行类似docker commit的操作，生成一个新的镜像层  
 4. docker再基于刚刚提交的镜像运行一个新容器  
 5. 重复2-4步，直到dockerfile中的所有指令执行完毕  
+
+## 1.6、dockerfile常用指令
+
+| 指令 | 说明 |
+| -- | -- |
+| FROM | 指定base镜像 |
+| MAINTAINER | 设置镜像的作者，可以是任意字符串 |
+| COPY | 将文件从build context复制到镜像中 |
+| ADD | 将文件从build context复制到镜像中，支持解压缩 |
+| ENV | 设置环境变量 |
+| EXPOSE | 指定容器中的进程会监听某个端口，docker可以将该端口暴露出来 |
+| VOLUME | 将文件或目录声明为volume |
+| WORKDIR | 为后面的RUN、CMD、ENTRYPOINT、ADD或COPY指令设置镜像中的当前工作目录 |
+| RUN | 在容器中运行指定的命令 |
+| CMD | 容器启时运行指定的命令（可以有多个，但仅最后一个生效） |
+| ENTRYPOINT | 容器启动时运行指定的命令（可以有多个，但仅最后一个生效） |
+
+## 1.7、构建一个自己的docker镜像
+
+![20251103140850](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20251103140850.png)
+
+![20251103140426](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20251103140426.png)
+
+运行image：
+
+![20251103140552](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20251103140552.png)

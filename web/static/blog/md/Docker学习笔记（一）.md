@@ -1,5 +1,16 @@
 # 一、docker学习笔记（一）
 
+## 附录-docker常用命令
+
+| CMD命令 | 说明 |
+| -- | -- |
+| docker ps -a | 查看所有容器，包括未运行的容器 |
+| docker stop ${CONTAINER_ID} | 停止指定容器 |  
+| docker rm ${CONTAINER_ID} | 删除指定容器 |
+| docker rmi ${IMAGE_ID} | 删除指定镜像 |
+| docker volume rm ${VOLUME_ID} | 删除指定卷 |
+| docker network rm ${NETWORK_ID} | 删除指定网络 |
+
 ## 1.1、docker用户
 
 ```bash
@@ -151,3 +162,71 @@ docker history也向我们展示了镜像的分层结构，每一层由上至下
 运行image：
 
 ![20251103140552](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20251103140552.png)
+
+## 1.8、docker的长期运行与停止
+
+容器的生命周期依赖于启动时执行的命令，只要命令不结束，容器也就不会退出。  
+例如， 我们可以通过运行一个长期命令来保持容器的运行状态：  
+
+```bash
+docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 1; done"
+```
+
+![20260104145441](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260104145441.png)
+
+不过这种方法有个缺点：占用了一个终端。  
+如果我们希望容器在后台运行，并且不占用终端，可以加上参数-d以后台方式启动容器：  
+
+```bash
+docker run -d ubuntu /bin/bash -c "while true; do echo hello world; sleep 1; done"
+```
+
+![20260104145801](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260104145801.png)
+
+容器的停止通过docker stop + CONTAINER ID命令实现：  
+
+![20260104150101](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260104150101.png)
+
+## 1.9、两种进入容器的方法
+
+我们经常需要到进到容器里去做一些工作，比如查看日志、调试、启动其他进程等。有两种方法进入容器：attach 和 exec  
+
+### 1.9.1、docker attach
+
+通过docker attach命令可以进入容器，并与容器进行交互。  
+可以看到该容器每隔20s打印一次“hello world”。  
+
+![20260104151343](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260104151343.png)
+
+如果要退出容器，可以使用Ctrl+P+Q组合键
+
+### 1.9.2、docker exec
+
+通过docker exec命令进入相同的容器：
+
+![20260104151732](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260104151732.png)
+
+exec参数说明如下：  
+
+1. -it 以交互模式进入容器，执行bash，其结果就是打开一个bash终端
+2. 可以像在普通Linux中一样执行命令。ps -elf显示了容器启动进程weile以及当前的bash进程
+3. exit退出容器，但是容器仍然运行
+
+### 1.9.3、docker attach与exec的区别
+
+attach和exec的区别在于：  
+
+1. attach直接进入容器启动命令的终端，不会启动新的进程
+2. exec可以启动新的进程，并且可以进入新的进程的终端
+3. 如果想直接在终端中查看启动命令的输出用attach，其他情况使用exec
+4. 如果知识为了查看启动命令的输出，可以使用docker logs命令，作用与tail类似
+
+![20260104152554](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260104152554.png)
+
+## 1.10 容器的分类
+
+容器按照用途可以分为两类：服务类容器和工具类容器。  
+服务类容器以daemon的形式运行，对外提供服务，比如web server、数据库等，通过-d参数以后台的方式启动这类容器时非常合适的。如果要排查问题，可以通过exec -it进入容器。  
+工具类容器通常能够给我们提供一个临时的工作环境，通常以run -it的方式启动，比如验证访问intelnet的能力：
+
+![20260104153239](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260104153239.png)

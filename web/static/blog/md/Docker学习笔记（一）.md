@@ -6,6 +6,8 @@
 | -- | -- |
 | docker ps -a | 查看所有容器，包括未运行的容器 |
 | docker stop ${CONTAINER_ID} | 停止指定容器 |  
+| docker start ${CONTAINER_ID} | 启动指定容器 |
+| docker restart ${CONTAINER_ID} | 重启指定容器 |
 | docker rm ${CONTAINER_ID} | 删除指定容器 |
 | docker rmi ${IMAGE_ID} | 删除指定镜像 |
 | docker volume rm ${VOLUME_ID} | 删除指定卷 |
@@ -230,3 +232,65 @@ attach和exec的区别在于：
 工具类容器通常能够给我们提供一个临时的工作环境，通常以run -it的方式启动，比如验证访问intelnet的能力：
 
 ![20260104153239](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260104153239.png)
+
+## 1.11 stop/start/restart容器
+
+docker stop本质上是向指定的docker进程发送一个SIGTERM信号，然后等待容器进程退出。  
+docker kill命令本质上是向指定的docker进程发送一个SIGKILL信号，强制终止容器进程。  
+对于处于停止状态的容器，可以通过docker start命令启动容器。  
+docker restart可以重启容器，其作用就是依次执行docker stop和docker start。  
+
+![20260106085145](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260106085145.png)
+
+在实际应用中，容器可能因某种错误而停止运行，对于服务类容器，我们通常希望在这种情况下容器能够自动重启。在启动容器时设置--restart参数，可以实现该效果。  
+
+![20260106085609](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260106085609.png)
+
+--restart=always意味着无论容器因何种原因退出（包括正常退出），都会立即重启；该参数的形式还可以是--restart=on-failure:3，表示如果容器以非0状态退出，则最多重启3次。
+
+## 1.12 pause/unpause容器
+
+有时我们只是希望让容器暂停运行，比如在调试时，可以使用docker pause命令暂停容器。  
+处于暂停状态的容器不会占用CPU资源，直到通过docker unpause命令恢复运行。  
+
+![20260106162018](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260106162018.png)
+
+## 1.13 容器的删除
+
+使用docker一段时间后，host上可能会有大量已经退出的容器，这些容器依然会占用host的文件系统资源。  
+如果确认不会再重启此类容器，可以通过docker rm命令删除容器。  
+
+![20260106162241](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260106162241.png)
+
+如果希望批量删除所有已经退出的容器，可以执行：docker rm $(docker ps -aq -f status=exited)
+
+![20260106162457](https://raw.githubusercontent.com/ZZh2333/picgoResource/main/img/20260106162457.png)
+
+## 1.14 资源限制
+
+一个docker host上会运行若干容器，每个容器都需要CPU、内存和IO资源。对于KVM、VMware等虚拟化技术，用户可以控制分配多少CPU、内存资源给每个虚拟机。  
+对于容器，docker也提供了类似的资源限制功能，避免某个容器因为占用太多资源从而影响其他容器乃至整个host的性能。  
+
+### 1.14.1、内存限额
+
+与操作系统类似，容器可以使用的内存包括两部分：物理内存和虚拟内存swap：  
+
+1. -m 或 --memory：设置内存的使用限额，例如100MB， 2GB。
+2. --memory-swap：设置内存加swap的总和。
+
+例如如下命令：
+
+```bash
+docker run -m 200M --memory-swap=300M -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 1; done"
+```
+
+其含义是允许该容器最多使用200MB的内存和100MB的swap。如果上述值为-1，即对容器内存和swap的使用没有限制。  
+
+使用progrium/stress镜像来学习如何为容器分配内存。该镜像可用于对容器执行压力测试：
+
+```bash
+docker run -it -m 200M --memory-swap=300M progrium/stress --vm 1 --vm-bytes 280M
+```
+
+* --vm 1：启动1个内存工作线程
+* --vm-bytes 280M：每个工作线程分配280MB的内存

@@ -6,3 +6,4 @@ uwsgi --stop uwsgi.pid
 git pull -f origin main
 chmod u+x update.sh
 uwsgi uwsgi.ini && echo "success!" || echo "failed!!!!!!!!"
+
